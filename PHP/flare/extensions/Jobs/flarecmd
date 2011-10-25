@@ -1,0 +1,560 @@
+#!/usr/bin/php
+
+<?php
+/**
+* @package Flare
+* @author Tim Rupp <tarupp01@indianatech.net>
+* @copyright GPL
+*/
+
+/**
+* Copyright (C) 2004-2005 Indiana Tech Open Source Committee
+* Please direct all questions and comments to TARupp01@indianatech.net
+*
+* This program is free software; you can redistribute it and/or modify it under the terms of
+* the GNU General Public License as published by the Free Software Foundation; either version
+* 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+* See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program;
+* if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+* MA 02111-1307, USA.
+*/
+$debug = 0;
+
+$fh = fopen("/tmp/flarecmd.lock", "w+");
+
+define_syslog_variables();
+
+if ($debug)
+    syslog(LOG_NOTICE, "Trying to acquire lock on flarecmd.lock");
+
+if (!flock($fh, LOCK_EX)) {
+    syslog(LOG_NOTICE, "flarecmd.lock already locked. Exiting");
+    exit();
+}
+
+if ($debug)
+    syslog(LOG_NOTICE, "Acquired lock on flarecmd.lock");
+
+require ("Console/Getopt.php");
+
+$cg 		= new Console_Getopt();
+$flaredir 	= '';
+$jobs_run 	= 0;
+$cmds		= array(
+    'makeuser'		=> "/usr/local/bin/makeuser",
+    'makeuser_smb'		=> "/usr/local/bin/makeuser.smb",
+    'makeuser_ftp'		=> "/usr/local/bin/makeuser.ftp",
+    'makeuser_svn'		=> "/usr/local/bin/makeuser.svn",
+    'makeuser_mysql'	=> "/usr/local/bin/makeuser.mysql",
+    'unmakeuser'		=> "/usr/local/bin/unmakeuser",
+    'unmakeuser_smb'	=> "/usr/local/bin/unmakeuser.smb",
+    'unmakeuser_ftp'	=> "/usr/local/bin/unmakeuser.ftp",
+    'unmakeuser_svn'	=> "/usr/local/bin/unmakeuser.svn",
+    'unmakeuser_mysql'	=> "/usr/local/bin/unmakeuser.mysql",
+    'disableuser_mysql'	=> "/usr/local/bin/disableuser.mysql",
+    'enableuser_mysql'	=> "/usr/local/bin/enableuser.mysql",
+    'mailer'		=> "/usr/local/bin/namemailer",
+    'sadder'		=> "/usr/local/bin/service_adder",
+    'sremover'		=> "/usr/local/bin/service_remover",
+    'smodifier'		=> "/usr/local/bin/service_modifier",
+    'htpasswd'		=> "/usr/local/apache2/bin/htpasswd"
+);
+$svnrepo	= "/usr/local/svn/";
+$svnacl		= "/etc/svn_student_acl";
+$svnauth	= "/etc/svn_student_auth";
+$smbauth	= "/etc/samba/smbpasswd";
+$vsftpd_deny	= "/usr/local/etc/vsftpd.deny";
+
+/**
+* Allowed arguments include
+*/
+$allowedShortOptions 	= "";
+$allowedLongOptions 	= array("flaredir=");
+
+// read the command line
+$args = $cg->readPHPArgv();
+
+// get the options
+$ret = $cg->getopt($args, $allowedShortOptions, $allowedLongOptions);
+
+// check for errors and die with an error message if there was a problem
+if (PEAR::isError($ret)) {
+    die ("Error in command line: " . $ret->getMessage() . "\n");
+    }
+
+$opts = $ret[0];
+if (sizeof($opts) > 0) {
+    // if at least one option is present
+    foreach ($opts as $o) {
+        switch ($o[0]) {
+            // handle the size option
+            case '--flaredir':
+                $flaredir = $o[1];
+                break;
+        }
+    }
+}
+
+if ($flaredir == '')
+    syslog(LOG_ERR, "You must specify a Flare installation to use files from.");
+else {
+    require_once($flaredir."/config-inc.php");
+    require_once($flaredir."/db/mysql.php");
+}
+
+$db     = new DB(_DBUSER, _DBPWRD, _DBUSE, _DBSERVER, _DBPORT);
+
+$jsql = array(
+    "mysql" => array(
+        "get_jobs" => "SELECT * FROM "._PREFIX."_jobs ORDER BY job_id ASC",
+        "del_jobs" => "DELETE FROM "._PREFIX."_jobs WHERE job_id=':1'",
+        "user_nfo" => "SELECT * FROM "._PREFIX."_users WHERE username=':1' LIMIT 1"
+    )
+);
+
+$stmt_get = $db->prepare($jsql[_DBSYSTEM]['get_jobs']);
+$stmt_del = $db->prepare($jsql[_DBSYSTEM]['del_jobs']);
+$stmt_nfo = $db->prepare($jsql[_DBSYSTEM]['user_nfo']);
+
+$stmt_get->execute();
+
+while($row = $stmt_get->fetch_assoc()) {
+    $job_id		= $row['job_id'];
+    $job_data 	= explode('::', $row['job']);
+    $job_type 	= $job_data[0];
+
+    /**
+    * Job Switcher
+    *
+    * flarecmd will only run jobs for job types that it knows. The following job
+    * types are known types.
+    *
+    * activate_account
+    * add_service_mysql
+    * add_service_svn
+    * add_service_smb
+    * add_service_ftp
+    * disable_service_mysql
+    * disable_service_svn
+    * disable_service_smb
+    * disable_service_ftp
+    * enable_service_mysql
+    * enable_service_svn
+    * enable_service_smb
+    * enable_service_ftp
+    * set_pending_service_mysql
+    * set_pending_service_svn
+    * set_pending_service_smb
+    * set_pending_service_ftp
+    * change_password_mysql
+    * change_password_svn
+    * change_password_ftp
+    * change_password_smb
+    * remove_service_svn
+    * remove_service_mysql
+    * remove_account
+    *
+    */
+    switch($job_type) {
+        case "activate_account":
+            if ($debug)
+                syslog(LOG_NOTICE, "Received activate_account job. Starting.");
+
+            $username = $job_data[1];
+            $password = $job_data[2];
+
+            $sql = array(
+                "mysql" => array(
+                    "activate" => "UPDATE "._PREFIX."_users SET status='A' WHERE username=':1'",
+                    "rmtmp" => "DELETE FROM "._PREFIX."_tmp WHERE data LIKE '%:1%'"
+                )
+            );
+
+            $stmt1 = $db->prepare($sql[_DBSYSTEM]['activate']);
+            $stmt2 = $db->prepare($sql[_DBSYSTEM]['rmtmp']);
+            $stmt_nfo->execute($username);
+            $nfo = $stmt_nfo->fetch_assoc();
+
+            $home_dir = dirname($nfo['home_dir']);
+
+            // Make the system account
+            exec($cmds['makeuser_ftp']." ".$username." ".$password." ".$home_dir,$output,$retval);
+
+            if($retval > 0)
+                syslog(LOG_ERR, "Errors occured when adding system account.".$output[0]);
+
+            unset($output);
+
+            // Make the samba account
+            exec($cmds['makeuser_smb']." ".$username." ".$password,$output,$retval);
+
+            if($retval > 0)
+                syslog(LOG_ERR, "Errors occured when adding samba account. ".$output[0]);
+
+            // Add the services to the service table
+            system($cmds['sadder']." --flaredir=".$flaredir." --username=".$username." --service=ftp",$retval);
+            system($cmds['sadder']." --flaredir=".$flaredir." --username=".$username." --service=smb",$retval);
+            system($cmds['sadder']." --flaredir=".$flaredir." --username=".$username." --service=web",$retval);
+
+            $stmt1->execute($username);
+            $stmt2->execute($username);
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "activate_account job finished.");
+
+            unset($output);
+            break;
+        case "add_service_mysql":
+            $username = $job_data[1];
+            $password = $job_data[2];
+
+            // Make the mysql account and create the users personal database
+            exec($cmds['makeuser_mysql']." --flaredir=".$flaredir." --username=".$username." --password=".$password,$output,$retval);
+
+            if($retval > 0)
+                die("Errors occured when adding mysql account.".$output[0]);
+
+            system($cmds['sadder']." --flaredir=".$flaredir." --username=".$username." --service=mysql",$retval);
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "add_service_mysql job finished.");
+
+            unset($output);
+            break;
+        case "add_service_svn":
+            $username = $job_data[1];
+            $password = $job_data[2];
+
+            // Make the subversion account
+            exec($cmds['makeuser_svn']." ".$username." ".$password." ".$svnrepo." ".$svnacl." ".$svnauth,$output,$retval);
+
+            if($retval > 0)
+                die("Errors occured when adding subversion account.".$output[0]);
+
+            system($cmds['sadder']." --flaredir=".$flaredir." --username=".$username." --service=svn",$retval);
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "add_service_svn job finished.");
+
+            unset($output);
+            break;
+        case "disable_service_mysql":
+            $username = $job_data[1];
+
+            // Make the mysql account and create the users personal database
+            exec($cmds['disableuser_mysql']." --flaredir=".$flaredir." --username=".$username, $output,$retval);
+
+            if($retval > 0)
+                die("Errors occured when disabling mysql account.".$output[0]);
+
+            system($cmds['smodifier']." --flaredir=".$flaredir." --username=".$username." --service=mysql --action=disable",$retval);
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "disable_service_mysql job finished.");
+
+            unset($output);
+            break;
+        case "disable_service_svn":
+            $username = $job_data[1];
+
+            $fh = fopen($svnauth, 'r');
+            $write = '';
+
+            while (!feof($fh)) {
+                $line 	= trim(fgets($fh,4096));
+                $tmp	= '';
+
+                if (strpos($line,$username.':') === false)
+                    $write .= $line."\n";
+                else {
+                    $tmp = '#'.$line."\n";
+                    $write .= $tmp;
+                }
+            }
+
+            fclose($fh);
+            $fh = fopen($svnauth,'w');
+            fwrite($fh, $write);
+            fclose($fh);
+
+            system($cmds['smodifier']." --flaredir=".$flaredir." --username=".$username." --service=svn --action=disable",$retval);
+
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "disable_service_svn job finished.");
+
+            unset($output);
+            break;
+        case "disable_service_smb":
+            $username = $job_data[1];
+
+            $fh = fopen($smbauth, 'r');
+            $write = '';
+
+            while (!feof($fh)) {
+                $line 	= trim(fgets($fh,4096));
+                $tmp	= '';
+
+                if (strpos($line,$username.':') === false)
+                    $write .= $line."\n";
+                else {
+                    $tmp = '#'.$line."\n";
+                    $write .= $tmp;
+                }
+            }
+
+            fclose($fh);
+            $fh = fopen($smbauth,'w');
+            fwrite($fh, $write);
+            fclose($fh);
+
+            system($cmds['smodifier']." --flaredir=".$flaredir." --username=".$username." --service=smb --action=disable",$retval);
+
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "disable_service_smb job finished.");
+
+            unset($output);
+            break;
+        case "disable_service_ftp":
+            $username = $job_data[1];
+
+            $fh = fopen($vsftpd_deny, 'a');
+            fwrite($fh, $username."\n");
+            fclose($fh);
+
+            system("sudo /etc/init.d/vsftpd reload");
+            system($cmds['smodifier']." --flaredir=".$flaredir." --username=".$username." --service=ftp --action=disable",$retval);
+
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "disable_service_ftp job finished.");
+
+            unset($output);
+            break;
+        case "enable_service_ftp":
+            $username = $job_data[1];
+
+            $fh = fopen($vsftpd_deny, 'r');
+            $write = '';
+
+            while (!feof($fh)) {
+                $line = trim(fgets($fh,4096));
+
+                if ($line == $username)
+                    continue;
+                else
+                    $write .= $line."\n";
+            }
+
+            fclose($fh);
+            $fh = fopen($vsftpd_deny,'w');
+            fwrite($fh, $write);
+            fclose($fh);
+
+            system("sudo /etc/init.d/vsftpd reload");
+
+            system($cmds['smodifier']." --flaredir=".$flaredir." --username=".$username." --service=ftp --action=enable",$retval);
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "enable_service_ftp job finished.");
+
+            unset($output);
+            break;
+        case "enable_service_mysql":
+            $username = $job_data[1];
+
+            // Make the mysql account and create the users personal database
+            exec($cmds['enableuser_mysql']." --flaredir=".$flaredir." --username=".$username, $output,$retval);
+
+            if($retval > 0)
+                die("Errors occured when enabling mysql account.".$output[0]);
+
+            system($cmds['smodifier']." --flaredir=".$flaredir." --username=".$username." --service=mysql --action=enable",$retval);
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "enable_service_mysql job finished.");
+
+            unset($output);
+            break;
+        case "enable_service_smb":
+            $username = $job_data[1];
+
+            $fh = fopen($smbauth, 'r');
+            $write = '';
+
+            while (!feof($fh)) {
+                $line 	= trim(fgets($fh,4096));
+                $tmp	= '';
+
+                if (strpos($line,'#'.$username.':') === false)
+                    $write .= $line."\n";
+                else {
+                    $tmp = substr($line,1);
+                    $tmp = trim($tmp);
+                    $tmp .= "\n";
+                    $write .= $tmp;
+                }
+            }
+
+            fclose($fh);
+            $fh = fopen($smbauth,'w');
+            fwrite($fh, $write);
+            fclose($fh);
+
+            system($cmds['smodifier']." --flaredir=".$flaredir." --username=".$username." --service=smb --action=enable",$retval);
+
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "enable_service_smb job finished.");
+
+            unset($output);
+            break;
+        case "enable_service_svn":
+            $username = $job_data[1];
+
+            $fh = fopen($svnauth, 'r');
+            $write = '';
+
+            while (!feof($fh)) {
+                $line 	= trim(fgets($fh,4096));
+                $tmp	= '';
+
+                if (strpos($line,'#'.$username.':') === false)
+                    $write .= $line."\n";
+                else {
+                    $tmp = substr($line, 1);
+                    $tmp = trim($tmp);
+                    $tmp .= "\n";
+                    $write .= $tmp;
+                }
+            }
+
+            fclose($fh);
+            $fh = fopen($svnauth,'w');
+            fwrite($fh, $write);
+            fclose($fh);
+
+            system($cmds['smodifier']." --flaredir=".$flaredir." --username=".$username." --service=svn --action=enable",$retval);
+
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "enable_service_svn job finished.");
+
+            unset($output);
+            break;
+        case "set_pending_service_mysql":
+            break;
+        case "set_pending_service_svn":
+            break;
+        case "set_pending_service_smb":
+            break;
+        case "set_pending_service_ftp":
+            break;
+        case "change_password_mysql":
+            break;
+        case "change_password_svn":
+            $username = $job_data[1];
+            $password = $job_data[2];
+
+            // Make the mysql account and create the users personal database
+            exec($cmds['htpasswd']." -bm ".$svnauth." ".$username." ".$password, $output,$retval);
+
+            if($retval > 0)
+                die("Errors occured when changing password for svn account.".$output[0]);
+
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "change_password_svn job finished.");
+
+            unset($output);
+            break;
+        case "change_password_ftp":
+            break;
+        case "change_password_smb":
+            break;
+        case "remove_service_svn":
+            $username = $job_data[1];
+
+            // Make the subversion account and erase the users acl and auth entries
+            exec($cmds['unmakeuser_svn']." ".$username." ".$svnrepo." ".$svnacl." ".$svnauth,$output,$retval);
+
+            if($retval > 0)
+                die("Errors occured when removing subversion account.".$output[0]);
+
+            system($cmds['sremover']." --flaredir=".$flaredir." --username=".$username." --service=svn",$retval);
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "remove_service_svn job finished.");
+
+            unset($output);
+            break;
+        case "remove_service_mysql":
+            $username = $job_data[1];
+
+            // Remove the mysql account and drop the users personal database
+            exec($cmds['unmakeuser_mysql']." --flaredir=".$flaredir." --username=".$username,$output,$retval);
+
+            if($retval > 0)
+                die("Errors occured when removing mysql account.".$output[0]);
+
+            system($cmds['sremover']." --flaredir=".$flaredir." --username=".$username." --service=mysql",$retval);
+            $stmt_del->execute($job_id);
+            $jobs_run += 1;
+
+            if ($debug)
+                syslog(LOG_NOTICE, "remove_service_mysql job finished.");
+
+            unset($output);
+            break;
+        case "remove_account":
+            break;
+    }
+}
+
+if ($debug) {
+    if ($jobs_run > 0)
+        syslog(LOG_NOTICE, "Ran ".$jobs_run." jobs.");
+    else
+        syslog(LOG_NOTICE, "No jobs were run");
+}
+
+flock($fh, LOCK_UN);
+
+if ($debug)
+    syslog(LOG_NOTICE, "Released lock on flarecmd.lock");
+
+fclose($fh);
+
+?>

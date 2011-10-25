@@ -1,0 +1,14 @@
+!506;s
+J
+SAU0PATH+=%<JGRASP_PATHS>%;
+SCU0PATH+=%<JGRASP_PATHS>%;
+S+U0PATH+=%<JGRASP_PATHS>%;
+SJU0CLASSPATH=+%;%<EXTENSION_CLASSPATHS>\012CLASSPATH+=%<JGRASP_CLASSPATHS>%;\012CLASSPATH+=.%;\012PATH=+%;%<JAVA_BIN_DIR>\012PATH+=%<JGRASP_PATHS>%;\012Compile\012NOT_FOUND_MESSAGE==Make sure you have the full JDK (J2SE SDK or other), not just the JRE, installed.\\nThe J2SE SDK is available from java.sun.com.\012Run_Applet +Debug_Applet\012ADD_APPLETVIEWER_CLASSPATH==Y\012
+SOU0PATH+=%<JGRASP_PATHS>%;
+SPU0
+s#i0
+s#j0
+!606;d
+[\012  grasp [\012   legendy -30.5\012   legendx -1.0\012   winflags 64\012   height 614\012   width 505\012   wbp 0\012   initlayout 0\012   yoffs 2.0\012   xoffs -2.0\012   scale 1.0\012   otherflags 11\012   visflags 118423679\012  ]\012  directed 1\012  node [\012   ClassInfo [\012    access 64\012    classname "<Hello/java>"\012    fromclassfiledate 0\012    fromclassfilename "%\011Hello.java.class>"\012    fromfilename "%\011Hello.java"\012   ]\012   id 0\012   graphics [\012    center [\012     x -2.0\012     y 2.0\012     z 0.0\012    ]\012   ]\012   vgj [\012    flags 0\012   ]\012  ]\012 ]!39;f
+%	Hello_World.java
+%	Hello_World.class

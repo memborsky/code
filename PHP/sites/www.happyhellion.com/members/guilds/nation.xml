@@ -1,0 +1,398 @@
+<?xml version="1.0" standalone="yes" ?>
+<guild name="nation">
+  <leader>
+    <name>Zman Hell</name>
+    <hp>666</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>zman</short>
+  </leader>
+
+  <officer>
+    <name>Katharos Ombre</name>
+    <hp>90</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>katt</short>
+  </officer>
+  <officer>
+    <name>Eve</name>
+    <hp>666</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>eve</short>
+  </officer>
+  <officer>
+    <name>Raving Mad Lunatic</name>
+    <hp>360</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>raving</short>
+  </officer>
+  <officer>
+    <name>Force Fury</name>
+    <hp>190</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>fury</short>
+  </officer>
+  <officer>
+    <name>Mab Forgotten</name>
+    <hp>130</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>mab</short>
+  </officer>
+  <officer>
+    <name>God Dammitall</name>
+    <hp>150</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>gd</short>
+  </officer>
+  <officer>
+    <name>Capt Christie</name>
+    <hp>130</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>capt</short>
+  </officer>
+  <officer>
+    <name>Dimentia Shade</name>
+    <hp>190</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>dim</short>
+  </officer>
+  <officer>
+    <name>Lord Zort</name>
+    <hp>200</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>zort</short>
+  </officer>
+  <officer>
+    <name>Viper Venom</name>
+    <hp>195</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>viper</short>
+  </officer>
+  <officer>
+    <name>Archangel Nemisis</name>
+    <hp>200</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>archangel</short>
+  </officer>
+  <officer>
+    <name>Fushimi Haruko</name>
+    <hp>170</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>haruko</short>
+  </officer>
+  <officer>
+    <name>Nemisis Wyrvenskull</name>
+    <hp>200</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>wyrven</short>
+  </officer>
+  <officer>
+    <name>Jessica Leafwood</name>
+    <hp>170</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>jessica</short>
+  </officer>
+  <officer>
+    <name>Julia Windwalker</name>
+    <hp>140</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>julia</short>
+  </officer>
+  <officer>
+    <name>Cataclysmic Power</name>
+    <hp>200</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>cp</short>
+  </officer>
+  <officer>
+    <name>Reyelaa Noir</name>
+    <hp>170</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>noir</short>
+  </officer>
+  <officer>
+    <name>Flame Seductress</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>flame</short>
+  </officer>
+  <officer>
+    <name>Athena Stormrage</name>
+    <hp>150</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>athena</short>
+  </officer>
+  <officer>
+    <name>Scarlet Oakleaf</name>
+    <hp>180</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>scarlet</short>
+  </officer>
+  <officer>
+    <name>Imp The Man</name>
+    <hp>135</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>imp</short>
+  </officer>
+  <officer>
+    <name>Tanis Hell</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>tanis</short>
+  </officer>
+
+  <member>
+    <name>Ravings Mad Lunatic</name>
+    <hp>360</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>ravings</short>
+  </member>
+  <member>
+    <name>Cryo Chitin</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>cryo</short>
+  </member>
+  <member>
+    <name>Melzan Oakheart</name>
+    <hp>130</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>melzan</short>
+  </member>
+  <member>
+    <name>Creator Of Oblivion</name>
+    <hp>120</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>oblivion</short>
+  </member>
+  <member>
+    <name>Inevitable Murderer</name>
+    <hp>145</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>inevitable</short>
+  </member>
+  <member>
+    <name>Martiln Serpenthelm</name>
+    <hp>140</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>Martiln</short>
+  </member>
+  <member>
+    <name>Love The Devil</name>
+    <hp>120</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>devil</short>
+  </member>
+  <member>
+    <name>X Swift Shot X</name>
+    <hp>120</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>swift</short>
+  </member>
+  <member>
+    <name>Hellion Force</name>
+    <hp>190</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>force</short>
+  </member>
+  <member>
+    <name>Nwn Gore</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>nwn</short>
+  </member>
+  <member>
+    <name>Thadeus Gage</name>
+    <hp>120</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>thadeus</short>
+  </member>
+  <member>
+    <name>Chatoic Alex</name>
+    <hp>120</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>chatoic</short>
+  </member>
+  <member>
+    <name>Ender Swift</name>
+    <hp>140</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>ender</short>
+  </member>
+  <member>
+    <name>Umbriel Galt</name>
+    <hp>170</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>galt</short>
+  </member>
+  <member>
+    <name>W E I R D O</name>
+    <hp>120</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>weirdo</short>
+  </member>
+  <member>
+    <name>Master Guts</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>guts</short>
+  </member>
+  <member>
+    <name>Master Metallica</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>metallica</short>
+  </member>
+  <member>
+    <name>Jayna Brimston</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>jayna</short>
+  </member>
+  <member>
+    <name>Raiyna On Ur Parade</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>raiyna</short>
+  </member>
+  <member>
+    <name>Spaztec Warrior</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>spaztec</short>
+  </member>
+  <member>
+    <name>Big Sausage</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>sausage</short>
+  </member>
+  <member>
+    <name>Sir Culbs</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>Sir Culbs</short>
+  </member>
+  <member>
+    <name>Anik The Priestess</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>anik</short>
+  </member>
+  <member>
+    <name>Necrotic Sayer</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>necrotic</short>
+  </member>
+  <member>
+    <name>Silmarwen Surion</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>surion</short>
+  </member>
+  <member>
+    <name>Xtreme Gt</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>xtreme</short>
+  </member>
+  <member>
+    <name>Risen From Blood</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>risen</short>
+  </member>
+  <member>
+    <name>Dismal Doll</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>dismal</short>
+  </member>
+  <member>
+    <name>Godly Bloodshed</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>godly</short>
+  </member>
+  <member>
+    <name>Larka Amnel</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>larka</short>
+  </member>
+  <member>
+    <name>Brother Nervana</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>nervana</short>
+  </member>
+  <member>
+    <name>Texarcanas Monk</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>texarcanas</short>
+  </member>
+  <member>
+    <name>Exodus Expidited</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>exodus</short>
+  </member>
+
+</guild>

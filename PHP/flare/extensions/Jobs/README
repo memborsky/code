@@ -1,0 +1,29 @@
+This extension expands Flare's functionality outside of that provided by the web server
+Jobs allows Flare to run commands using elevated privileges (root) on the server.
+
+At Tech we used this feature to add system accounts for the following services that
+we provided to the students
+
+- FTP
+- Samba
+- MySQL
+- Subversion
+
+We also used this extension to act as a web-cron daemon. This allowed us to schedule
+scripts and other items to be run by using the web front-end.
+
+To install this extension, you must do one extra step outside of clicking the 'install'
+button in the Settings extension.
+
+A script comes with this extension called 'flarecmd'. You must place an entry for this
+script in root's (or an account with privileges meeting your personal requirements) crontab
+file. The following line in your crontab can be used.
+
+*/5 * * * * /usr/local/bin/flarecmd --flaredir=/usr/local/apache2/htdocs/flare/ >/dev/null 2>&1
+
+Replace the path to flarecmd and the path to your Flare installation with your own locations
+This cron entry will run the flarecmd script every 5 minutes.
+
+flarecmd is written so that if another instance of itself is still running after the 5 minutes
+ends, it will not start another copy of flarecmd. It uses a lockfile in the /tmp folder to accomplish
+this.

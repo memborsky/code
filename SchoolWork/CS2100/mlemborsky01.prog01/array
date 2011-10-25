@@ -1,0 +1,39 @@
+	BR	Main
+array:	.BLOCK	d#20
+arrC:	.BYTE	h#0000
+incA:	.BYTE	h#0001
+start:	.BYTE	h#0000
+cur:	.BYTE	h#0000
+end:	.BYTE	h#0009
+lf:	.BYTE	h#000A
+temp:	.BYTE	h#0000
+			;-------
+Gdata:	DECI	array,x
+	LOADA	end,i
+	COMPA	cur,i
+	BRNE	ThenG
+	BREQ	ElseG
+ThenG:	RTS
+ElseG:	ADDX	incA,d
+	LOADA	cur,i
+	ADDA	d#1,d
+	BR	Gdata
+			;-------
+Pdata:	DECO	array,x
+	LOADA	end,i
+	COMPA	cur,i
+	BRNE	ThenP
+	BREQ	ElseP
+ThenP:	RTS
+ElseP:	ADDX	incA,d
+	LOADA	cur,i
+	ADDA	d#1,d
+	BR	Pdata
+			;-------
+Main:	LOADX	array,d
+	STOREX	arrC,d
+	JSR	Gdata
+	LOADX	array,d
+	JSR	Pdata
+	STOP
+	.END

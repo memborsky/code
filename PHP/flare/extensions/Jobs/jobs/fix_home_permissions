@@ -1,0 +1,19 @@
+#!/bin/sh
+
+homedir="/mnt/fuel/home/"
+dirs=`ls $homedir | grep -v index`
+
+for user in $dirs
+do
+    if [ -d $homedir"/"$user ]; then
+        sudo chown $user:$user $homedir"/"$user -R
+
+        if [ -d $homedir"/"$user"/public_html" ]; then
+            sudo chown nobody:nobody $homedir"/"$user"/public_html" -R
+        fi
+    fi
+done
+
+if [ -e $homedir"/index.php" ]; then
+    sudo chown nobody:nobody $homedir"/index.php"
+fi

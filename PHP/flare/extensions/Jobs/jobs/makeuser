@@ -1,0 +1,27 @@
+#!/bin/sh
+
+if [ "$1" == '' ]; then
+    echo "You must supply a username to create"
+    exit
+fi
+
+if [ "$2" == '' ]; then
+    echo "You must supply an account type"
+    exit
+fi
+
+
+else
+    if [ "$2" == "ftp" ]; then
+        /usr/local/bin/makeuser.ftp
+    elif [ "$2" == "smb" ]; then
+        /usr/local/bin/makeuser.smb
+    elif [ "$2" == "mysql" ]; then
+        /usr/local/bin/makeuser.mysql
+    elif [ "$2" == "svn" ]; then
+        /usr/local/bin/makeuser.svn
+    else
+        echo "Unknown account type!"
+        exit
+    fi
+fi

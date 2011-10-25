@@ -1,0 +1,52 @@
+#!/usr/bin/php
+<?php
+
+$_SERVER["SERVER_SOFTWARE"] = "linux";
+$_SERVER["DOCUMENT_ROOT"] = ".";
+$_SERVER["HTTP_HOST"] = "localhost";
+
+require_once "lastRSS.php";
+
+if ($_SERVER["argc"] <= 1)
+{
+  die("Usage: " . $_SERVER["argv"][0] . " <URL> [# of posts]\n");
+}
+
+$args = array(
+  "url"   => $_SERVER["argv"][1],
+  "head"  => is_null($_SERVER["argv"][2]) ? 5 : $_SERVER["argv"][2]
+);
+
+$short_urls = array(
+  "slashdot"    => "http://rss.slashdot.org/Slashdot/slashdot",
+  "gw-news"     => "http://www.guildwars.net/newsarchive/rss/news-current.xml",
+  "gw-updates"  => "http://www.guildwars.com/support/gameupdates/rss/updates-current.xml"
+);
+
+$args["url"] = array_key_exists($args["url"], $short_urls) ? $short_urls[$args["url"]] : $args["url"];
+
+$rss = new lastRSS();
+$rss->cache_dir   = '/tmp/';
+$rss->cache_time  = 3600;
+
+$pattern = array('/<ul[^>]*>/', '/<\/ul>/', '/&lt;/', '/&gt;/', '/&amp;/', '/quot;/', '/&apos;/', '/&#146;/', '/a href=\"/', '/\[\/a\]/');
+
+$replace = array('[list]', '[/list]', '[', ']', '&', '"', "'", "'", 'url=', '[/url]', '');
+
+
+$count = 1;
+
+$rs = $rss->get($args["url"]);
+
+foreach ($rs['items'] as $item)
+{
+  if ($item['pubDate'] < date(r))
+  {
+    echo $item['title'] . " - " . $item['pubDate'] . "\n";
+    echo "  " . preg_replace($pattern, $replace, $item['description']) . "\n";
+  }
+
+  $count == $args["head"] ? exit : $count++;
+}
+
+?>

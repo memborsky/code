@@ -1,0 +1,179 @@
+:: WELCOME ::
+
+	Welcome, and thanks for taking the time to read the Flare installation document.
+	We'll do our best to walk you through a typical setup of Flare on a Linux based system.
+
+	The system configuration we'll be using for this tutorial is shown below.
+
+	- Debian Sarge
+	- PHP 5.0.4
+	- MySQL 4.0.11
+
+	We assume that your system is different, but thats OK because Flare is more than likely
+	capable of running smoothly on your system.
+
+:: PRE INSTALL ::
+
+	Flare comes with an installation script, but before you run it, you'll want to prep
+	your system environment so that you can avoid the majority of any potential errors that
+	may exist. To begin, start by going through and checking off the below steps.
+
+	[ ] - Have you established an area of filesystem space to use as your root directory?
+		ex. /flare
+
+	[ ] - Have you created a home directory where all user accounts will reside?
+		ex. /flare/home
+
+	[ ] - Have you created a groups directory where all group folders will reside?
+		ex. /flare/groups
+
+	[ ] - Have you installed all the required PEAR packages?
+		- See docs/REQUIREMENTS
+
+:: INSTALL ::
+
+	Great, now you're ready to install Flare.
+
+	The installation is not difficult, and you should be up and running quickly.
+
+	Let's begin by extracting the Flare package.
+
+		[user@localhost]$ tar zxf flare.tar.gz
+
+	This will extract the entire Flare package to your current working directory.
+	Now, move the Flare folder to your webroot.
+
+	The next thing you'll want to do is make sure that the webserver can write to
+	the directory you just extracted; this can be accomplished with chown.
+
+		[user@localhost]$ chown nobody:nobody flare -R
+
+	Great, once you've done that, you can pop onto your favorite webbrowser.
+	Surf to the new Flare directory.
+
+		http://myserver/flare/
+
+	Immediately you'll be faced with the Flare install routine.
+
+:: POST INSTALL ::
+
+	The steps below outline actions you can take to make sure your Flare
+	setup is as secure as is possible.
+
+	The developers of Flare are fully aware of the potential security
+	vulnerabilities associated with hosting an area of writable filesystem.
+	Please read the procedures below and decide for yourself if they are
+	adequate for your installation of both Apache and Flare.
+
+	APACHE
+	------
+	
+	After installation, make sure you restrict viewing of the .tpl files in each templates directory.
+	If you are using Apache as your webserver, we have already taken care of this for you. If you are
+	using any other webserver, you will have to do this manually.
+
+	The Apache directives for doing this are shown below.
+
+		- Create a .htaccess file in each directory that contains template files.
+		- In that .htaccess file, place the following commands
+
+			<Files ~ "\.tpl">
+			    Order allow,deny
+			    Deny from all
+			</Files>
+
+		- Save the file and exit
+
+
+	Now for some chmod'ing to secure your installation.
+
+	Go into your Apache config file and set up user dirs. The following Apache directives can be placed
+	at any point in your httpd.conf file
+
+		UserDir disabled root
+		UserDir public_html
+		<Directory /home/*/public_html>
+			AllowOverride FileInfo AuthConfig Limit Indexes
+			Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+			<Limit GET POST OPTIONS PROPFIND>
+				Order allow,deny
+				Allow from all
+			</Limit>
+			<LimitExcept GET POST OPTIONS PROPFIND>
+				Order deny,allow
+				Deny from all
+			</LimitExcept>
+		</Directory>
+
+	You will need to inform your users that any files that they manually place in the public_html
+	folder, either by ftp, or by making them and then putting them there, will NOT be editable, or deletable
+	by the web interface. Only files that are added by the web interface will be able to be deleted via
+	the web interface!
+
+	SYSTEM
+	------
+
+	If you want to use the job scheduling system (Indiana Tech, yes you do!), you'll need to copy
+	over the scripts from the tech-devel repository into the directory /usr/local/bin.
+
+	Make sure the files have the execute bit set. This can be accomplished with the following command
+
+		chmod +x filename
+
+	Also, make sure you set up your crontab to run the flarecmd script every 5 minutes. For example,
+	on the Flare server, the following line was used in crontab
+
+	*/5 * * * * /usr/local/bin/flarecmd --flaredir=/usr/local/apache2/htdocs/flare/
+
+	Notice that you need to include a path to the Flare installation whose scripts you want to use.
+	The first field (*/5) tells cron to run that script every 5 minutes.
+	
+:: CAVEATS ::
+
+	Flare is written using bleeding edge technologies. As such, many install bases may need to upgrade
+	their software to meet even our minimum requirements.
+
+	During the development of Flare, we ran into several unforseen setbacks that we solved using the
+	techniques below.
+
+	- Flare uses SSL, however a bug in Internet Explorer causes caching to plain out not work when
+	  being tunneled through SSL. This causes all file downloads to fail. To fix this, we had to tweak Apache.
+
+	  If you anticipate running the same setup, here is how you can mitigate this problem.
+
+	  First, you must compile Apache with --enable-headers. Once you have re-compiled and re-installed;
+	  in either a <VirtualHost> directive or the global config, add the following config options
+
+		<Files *.*>
+			Header unset Pragma
+			Header unset Cache-Control
+		</Files>
+
+	  These config options will allow Internet Explorer users to download files.
+
+	- Flare uses XHTML and many CSS tags that may only work in browsers that support CSS version 2.
+
+	  Currently, there is no fix for this problem. The best suggestion we can give is to encourage
+	  all the users of the system to use a more up to date web browser. In particular, we recommend
+	  Firefox because that was our browser of choice when developing Flare, and as such, Flare should
+	  look the best in it.
+
+	- File permissions
+
+	  Flare must be able to write to 2 master directories. These directories and all their contents
+	  must subsequently be owned by the process writing the files...aka Apache.
+
+	  What this boils down to is that any files created via the shell cannot be removed through Flare,
+	  and any files uploaded through Flare can not be changed or removed via the shell.
+
+	  This problem is for the most part insurmountable, however we provide a couple work arounds
+	  that you can try for your particular installation.
+
+	  First, try using the Maintenance extension's fix_file_permissions task. This will fix all current
+	  problems with files that are missing permissions or permissions that are not valid anymore.
+
+	  Second, you may want to change the way you operate your Flare install. For instance, Indiana Tech
+	  provides the student's home directory as the root for the FTP server, however the Flare root
+	  directory for each student account is a public_html directory that resides in their FTP home
+	  directory. This allows us to separate the functionality of the two systems. Any files placed
+	  in the public_html directory via FTP can be fixed with the fix_file_permissions Maintenance task.

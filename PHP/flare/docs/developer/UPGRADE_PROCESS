@@ -1,0 +1,56 @@
+This document details the steps required to update the production code for Flare @ Tech
+
+This procedure should be relatively straight-forward. Flare production code is maintained
+using the Flare Subversion repository. To do any of the following commands, you will need
+to have the following
+
+- sudo access on Flare
+- Make sure the Maintenance extension is installed
+- Be an administrator of the Maintenance extension.
+
+Once these requirements are met, you'll want to start the maintenance steps by doing the
+following.
+
+1. Log in under your account to the web frontend
+
+2. Click the ADMIN link at the top left
+
+3. Choose the Maintenance extension
+
+4. Click the 'Maintenance Mode' button. This will activate maintenance mode. During this
+   time, you will not be able to access any 'user' accessible pages, only admin accessible
+   pages. All users will be directed to a Maintenance screen where they will be notified
+   that Flare is undergoing routine maintenance. This maintenance mode will last for
+   aproximately 2 hours or until you click the 'Deactivate Maintenance Mode' button.
+
+Once you have finished the previous steps, the next step is to actually do the maintenance
+that you planned on doing. Normally you'll be doing this from the Flare command line.
+Therefore, log in to Flare via SSH and begin the following steps.
+
+1. Change directory to
+
+	/usr/local/apache2/htdocs/flare
+
+2. Type the command to update the Flare sourcecode from the burning-edge repository
+
+	svn update
+
+3. Change the permissions on all the files back to be owned by the web user. This
+   is important because the web user must be able to write to the template cache
+   directory and several other directories. If this step is not done, then all
+   update files will remain owned by root
+
+	sudo chown nobody:nobody * -R
+
+4. Remove several files and folders. The following files and folders need to be
+   removed or else they could expose Flare to being hacked easier.
+
+	rm setup.php
+	rm setup/ -rf
+	rm extensions/Accounts/install.php
+	rm extensions/Authentication/install.php
+	etc, etc, etc until you remove all the install files for extensions already installed
+
+5. Finally, if any structural changes have been made to the database, make sure that you
+   replicate those changes over to the Flare database. Failing to do this could screw things
+   up big time.

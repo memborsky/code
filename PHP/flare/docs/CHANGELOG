@@ -1,0 +1,184 @@
+- 03.18.2005 (0.0.4-47 alpha)
+	- First Alpha
+	- Packaged application as Flare
+	- Authentication system initial infrastructure
+	- Icon sets Added
+	- Just get the damn thing working
+	- Initial interface
+	- Basebones Filesystem extension (at least 'ls')
+	- Initial set of templates created with Smarty
+
+- 04.21.2005 (0.2.3-232 alpha)
+	- Add "Folder Information" line for MyFiles view
+	- Windows Integrated Authentication added. Use 'kerberos' option 
+		for _AUTH_TYPE in config file. phpkrb5 must be compiled and
+		installed as a php extension. This extension is included 
+		with the base distribution of Flare.
+	- File downloading works (partially, binary files like images are still a bit screwy)
+		* edit: 04-24-2005: File downloads should be working 100%
+	- Bookmarks functionality added
+	- New actions (file delete, copy and cut templates added). Functionality will follow
+	- Removed sorting links from myfiles_main pages. Not really worth it yet
+	- Bookmarks dropdown list on myfiles page allows for click and go use
+	- Ability to remove directories (and recurse remove the dirs beneath them) added
+	- Ability to create new directories in any directory you are currently in
+	- Ability to login to the admin page from the basic login page added
+	- File uploads work
+	- Admin interface created
+	- Ability to add new users via admin interface
+	- Logging functionality beginning to be integrated into the system
+	- Ability to view and clear the log from the admin interface
+	- Ability to remember user credentials
+	- Flare developer website
+
+- 05.10.2005 (0.5.6-562 alpha)
+	- Button bar, and checkboxes for file rename, delete, move, etc
+	- Groups system
+	- Total directory size on each "My Files" page
+	- User level authentication types supported. This means userA can log in with database authentication
+		and userB can log in with kerberos authentication, and the whole thing is transparent.
+	- Ability to edit bookmarks added
+	- Credits file first draft written
+	- Basic installation program written
+	- immutable_dirs feature added
+	- Paste from copy and cut features added
+	- Parent directory link added
+	- Closed bugs
+		- #1 - Dead symlinks arent removed when clicking Delete button
+		- #2 - Settings aren't saved for all fields
+		- #7 - Groups don't go away
+		- #8 - Files don't upload to the right directory
+		- #11 - Change in password isn't saved
+
+- 07.27.2005 (0.9.0-807 alpha)
+	- We're almost to stable. I wont release a 1.0 stable (no matter how many commits we have) until
+	  I am sure that we are actually stable. Highlights for this release include.
+	- Heavy work put into the admin interface. Everything should work in it.
+	- More heavy work and bugfixes on the user side of the interface.
+	- Edit user group should be functional, although it isnt 100%
+	- I was going initially for HTML 4.01 Transitional W3C validation, but decided to go a step
+	  further and just make the whole thing HTML 4.01 Strict. Flare is 100% HTML 4.01 Strict compliant.
+	- Removed a lot of account options. It was agreed upon that many of the items available in the
+	  users account entry in the database, just did not relate to any core area of Flare. Thus, those
+	  database fields were removed. They can always be re-added through extensions that want to make
+	  use of them.
+	- New Feature: Archive Extract
+	- New Feature: Create Archive (actually works almost 100% now)
+	- To maintain the users website link, a new entry was added to flare_config that includes
+	  the base_url that you want all user websites to use. Flare will replace {USERNAME} with the
+	  current user who is surfing around.
+	- Moving files works 100%
+	- Copying files works 100%
+	- New Feature: Rename items
+	- Stored, hashed password was removed from session vars. Why did I have this there to begin with?
+	- New Feature: Group Quotas - this is still not fully implemented but it's getting there and the
+	  base code is in place.
+	- New Feature: Trusted and Distribution groups - Because we couldnt decide on a good way to deal
+	  with permissions, we're leaving it up to the operating system. Trusted groups allow any group
+	  member to write to the group directory. Distribution groups allow only the group admin to write
+	  to the group. We'll take care of figuring out who's in which groups and who the admins are, but
+	  the community will need to script how they deal with file permissions at the filesystem level.
+	- Logging has been greatly enhanced, and is actually in most of the code where necessary.
+	- Fixed a bug in the admin.php page for the main site. It will now redirect the user to index.php
+	  if they fail to authenticate, and from there they will be shown the login screen.
+	- Lots of new template files added to take care of new items in admin area and in the general app
+	- All core CSS was validated
+	- For our next release, we will fully transition all hard coded text to our lang files. There
+	  are plans too to also perhaps provide a lang file feature in the extensions so that they dont
+	  need to put their constants into the core Flare lang file. I am also hoping to start add some
+	  reports to the brand new reporting system. Getting close to back to school time so stability
+	  and bug fixing will be top priority. Also, I have it on my list to upgrade the install scripts.
+	  Thanks for reading.
+
+- 11.14.2005 (0.9.0-967 alpha)
+	- School is really taking it out of me. Here's the most recent updates that have gone into Flare.
+	- Added a permissions system to the Filesystem extension. This completely replaces the bogus
+	  immutable dirs feature that we had previously had. This system scales MUCH better than immutable
+	  dirs and gives the admin much finer grained control over permissions. It also has some big
+	  drawbacks if we arent careful, but we are testing extensively so hopefully it shouldnt be a
+	  problem.
+	- Added a quotas feature. This was a huge request from the Open Source Committee. We needed this
+	  bad or else our job of retricting available space for users was toast. The quotas system does
+	  not have an interface yet for adjusting quotas or even setting them during Account creation.
+	  I'm working on those parts though so they should go in to SVN in the near future.
+	- Fixed a lot of bugs in all extensions.
+	- Flare's entire API in all extensions is now documented and PHPDocumentor has been run on it. The
+	  results can be seen here. https://flare.indianatech.net/flaredoc/
+	- Matt Emborsky has been a big help in providing code for the Maintenance extension. So far he's
+	  contributed an 'optimize tables' task, and he is currently working on a permissions task. Thanks!
+	- Added a 'used quota/total quotas' display to the MyFiles page
+	- Added a new, better, means of authentication to Windows Active Directory using the great PHP class
+	  adLDAP. http://adldap.sourceforge.net/ It is highly recommended that if you're using AD authentication
+	  that you now use this form instead of kerberos. Kerberos we realize can have massive problems
+	  when it comes to authenticating you if your system clock and the domain controllers system clock
+	  become skewed. With adLDAP you dont have that problem.
+	- Added ability for the user to be able to mark their account as publically viewable or not. This will
+	  effect if they can join groups or not.
+	- Dropped 2 fields from the accounts database that had to do with user and group directories. Now
+	  just a single field, one for user home and one for group home, are provided.
+	- Added placeholder for future ClamAV scanning extension
+	- Added a javascript character counter to the Add Group page
+	- Tim was voted monkey most likely to buy a 10 gallon hat and dance around it.
+	- Most likely a helluva lot more. It feels like an incredible amount of work has gone into this
+	  update.
+
+- 01.29.2006 (0.9.0-1028 beta)
+	- Many bugfixes
+	- Added a whole install system. Should be much easier to install Flare now
+	- Added several new Tech specific things. Mainly a new job runner called flarecmd was added. Scripts
+	  from the OS Committee website were integrated with this means of activating services.
+	- Gradually getting back into the swing of things for the last semester.
+	- More maintenance tasks are on the way.
+
+- 03.29.2006 (0.9.1-1104 beta)
+	- Template updates to beautify input fields and overall layout
+	- Documentation files updated to be more accurate with current release
+		- TODO
+		- Credits
+		- REQUIREMENTS
+	- Lots of template variables added to replace static text
+	- Support for managing services from the web
+	- Upgraded to Smarty 2.6.12
+	- Updated several install scripts
+	- Added formatting to make extensions setup easier to read
+	- New tables added to ClamAV extension
+	- Added majority of remaining functionality to ClamAV extension
+	- Added full paths to all requires
+	- New MIME types added
+	- Maintenance tasks added
+		- Remove old reports
+		- Fix File Permissions (not entirely functioning yet)
+	- Changed admin account to be private by default
+	- New Reports
+		- Users with most groups
+	- Added show screen for clear jobs table maintenance task
+	- Added code to fix displaying negative total quotas
+	- Added ability to add and remove extensions to the Settings extension
+	- Added new settings and features to the Email extension
+	- Fixed a static table name in an install script
+	- Added a maintenance mode feature
+	- Fixed several issues with group and file permissions being made incorrectly
+	- Mike Earnhart uncovered a chunk of code that hadnt been written that was affecting file permissions. This has been fixed
+	- Fixed an issue with table width on the MyFiles page
+	- Lots of improvements to the Announcement Message system
+	- Several group fixes were made thanks to Chris Brown pointing out bugs
+	- Lang files have been split up to per extension instead of compiling them all in one lang file.
+	- Added a setting to almost all extensions allowing the extension to be hidden
+	- Added options.php to show all options available. Must be an admin to see this
+	- Added ldap and adldap to account creation page
+	- Fixed an incorrect documentation line that would cause PHPDocumentor to die
+	- Fixed zip extraction
+	- Added requested feature #43 (See https://flare.indianatech.net/bugzilla)
+
+- 05.07.2006 (0.9.2-1184 beta)
+	- Fixed multiple problems with the Email extension
+	- Added mailing list support to Email extension
+	- Added Jobs extension
+	- Added Xinha extension
+	- Made most textareas use Xinha for input
+	- Fixed several bugs in the Help extension which were found when replying to feedback
+	- Added denied_hosts report
+	- Added beginning code for purging accounts from the system
+
+-	(0.9.3- beta)
+	- Added requested feature #49

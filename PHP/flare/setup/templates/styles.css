@@ -1,0 +1,171 @@
+/* START - Global CSS */
+	html, body {
+		font-size: small;
+		font-family: Helvetica,Arial,sans-serif;
+		background-color : #ccc;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		border: none;
+	}
+
+	input {
+		font-size: large;
+	}
+
+	select {
+		font-size: large;
+	}
+
+	.subtitle {
+		font-size: 8pt;
+		font-style: italic;
+	}
+
+	.app_name {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 38px;
+		font-weight: bold;
+		font-style: italic;
+	}
+
+	.xsmall_centered {
+		font-size: x-small;
+		text-align: center;
+	}
+
+	.normal {
+		font-size: 10pt;
+	}
+
+	.input_txt {
+		font-family: arial;
+		font-size: large;
+		border: 1px solid #999;
+	}
+
+	.input_btn {
+		font-family: arial;
+		font-size: large;
+		border: 1px solid #999;
+		cursor: pointer;
+	}
+
+	.input_select {
+		font-family: arial;
+		font-size: large;
+		border: 1px solid #999;
+	}
+
+/* END - Global CSS */
+
+/* START 	- login.tpl */
+	.style1 {
+		font-size: small;
+	}
+
+	.style2 {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: x-small;
+		color: #999999;
+	}
+
+	.style2 {
+		font-size: x-small;
+	}
+
+	.style4 {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: x-small;
+	}
+
+	.style5 {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: x-small;
+		font-weight: bold;
+	}
+
+	.txtbox {
+		background-color: #AEAEAE;
+	}
+/* END 		- login.tpl */
+
+/* START 	- left.tpl */
+	.col_left_table {
+		text-align: left;
+		width: 100%;
+		height: 30%;
+	}
+
+	.left_header {
+		background-color: rgb(51, 102, 255);
+		height: 10px;
+		width: 110px;
+		color: rgb(255, 255, 255);
+		font-size: 8pt;
+		font-family: Arial, Helvetica, sans-serif;
+		font-weight: bold;
+		padding-left: 20px;
+	}
+
+	.left_content {
+		background-color: #fff;
+		font-size: x-small;
+		font-family: Arial, Helvetica, sans-serif;
+		height: 1%;
+		width: 15%;
+	}
+
+	.two {
+		font-size: x-small;
+		text-align: center;
+		vertical-align: top;
+		width: 50px;
+	}
+
+/* END 		- left.tpl */
+
+/* START - header.tpl */
+	.table_outer_two {
+		width: 100%;
+		background-color: #fff;
+		border: 1px;
+		border-style: solid;
+		padding: 20px;
+	}
+
+	.table_outer_three {
+		width: 100%;
+		background-color: #fff;
+		border: 1px;
+		border-style: solid;
+		border-color: #0E72A4;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.main_page {
+		width: 100%;
+		background: #ccc;
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+/* END - header.tpl */
+
+/* START - step_1.tpl */
+	.db_items_col_one {
+		width: 50%;
+		float: left;
+		clear: right;
+	}
+
+	.db_items_col_two {
+		width: 50%;
+		float: right;
+		clear: right;
+	}
+/* END - step_1.tpl */

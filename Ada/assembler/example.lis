@@ -1,0 +1,32 @@
+File: example.asm		date		Page 1
+
+LINE OPCODE OPND  LOC    | LABEL	OPCODE	OPERAND
+0001              000000 | ;This is an example program
+0002              000000 | zero:	.WORD	0, 1, -1
+0003              00000C |		.BLOCK	10
+0004              000016 |		.PROG	example
+0005              000016 | label:	.EQU	error
+Error : Label error is undefined.
+0006    4         000016 | strt:	ADD	zero
+0007              00001A | SysLabel0:	.BLOCK	10
+0008    4         000024 |		ADD	#0
+0009   14         000028 |		LDA
+0010    4         000028 |		ADD
+0011   24         000028 |		STA	SysLabel0
+0012   24         00002C |		STA	zero + 4
+0013   80         000030 |		NOP		  ;This is a comment
+0014   24         000030 |		STA	zero + 2  ;this is another comment
+0015              000034 | SysLabel1:	.BLOCK	10
+0016   14         00003E |		LDA	zero+4
+0017    4         000042 |		ADD	zero
+0018   24         000046 |		STA	SysLabel1
+0019              00004A | done:	.END	example
+
+
+Lable		Value
+zero		F
+label		F
+strt		16
+SysLabel0		F
+SysLabel1		F
+done		F

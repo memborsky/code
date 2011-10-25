@@ -1,0 +1,29 @@
+Jump Program
+0003 Base Memory
+0005 String Size + 2 (2 = Count of string)
+0007 Number of Strings
+0009 Count of Strings Gotten
+0011 Count for decrement of String Character size
+0013 Temp storage of Character size
+Program-
+	mem[0003] := mem[0003] + mem[0005]
+	mem[0003] := 0002
+	Prompt for number_of_strings
+	Get number_of_strings value
+	Jump Sub Get_String
+	mem[0009] := mem[0009] + 1
+	IF mem[0009] < mem[0007] THEN JUMP unconditionally to Program
+
+	Sub+ Get_Sting
+		Get Char
+		IF Char = $crlf THEN RT Program
+		Store Char mem[0003]
+		mem[0003] := mem[0003] + 1
+		mem[0006] := mem[0006] + 1
+		Jump unconditional to Get_String
+	Sub- Get_String
+
+	Sub+ Put_String
+		Put Char
+		mem[0003] := mem[0003] + 1
+		

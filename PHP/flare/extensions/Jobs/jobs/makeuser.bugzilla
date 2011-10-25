@@ -1,0 +1,211 @@
+#!/usr/bin/php
+
+<?php
+
+/**
+* @package Flare
+* @author Tim Rupp <tarupp01@indianatech.net>
+* @copyright GPL
+*
+* Copyright (C) 2004-2005 Indiana Tech Open Source Committee
+* Please direct all questions and comments to TARupp01@indianatech.net
+*
+* This program is free software; you can redistribute it and/or modify it under the terms of
+* the GNU General Public License as published by the Free Software Foundation; either version
+* 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+* See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program;
+* if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+* MA 02111-1307, USA.
+*/
+
+require ("Console/Getopt.php");
+
+$config_file	= '';
+$db_file 	= '';
+$cg 		= new Console_Getopt();
+
+/**
+* Allowed arguments include
+*/
+$allowedShortOptions 	= "";
+$allowedLongOptions 	= array("flaredir=","username=","password=");
+
+// read the command line
+$args = $cg->readPHPArgv();
+
+// get the options
+$ret = $cg->getopt($args, $allowedShortOptions, $allowedLongOptions);
+
+// check for errors and die with an error message if there was a problem
+if (PEAR::isError($ret)) {
+    die ("Error in command line: " . $ret->getMessage() . "\n");
+    }
+
+$opts = $ret[0];
+if (sizeof($opts) > 0) {
+    // if at least one option is present
+    foreach ($opts as $o) {
+        switch ($o[0]) {
+            // handle the size option
+            case '--flaredir':
+                $flaredir = $o[1];
+                break;
+            case '--username':
+                $username = $o[1];
+                break;
+            case '--password':
+                $password = $o[1];
+                break;
+        }
+    }
+}
+
+/**
+* I took all of the following constants from the Constants.pm
+* Bugzilla file. Apparently when users are created, Bugzilla
+* inserts several entries into the email_setting table for the
+* user which specifies if they receive email when they submit
+* a bug or when changes are made to the bug.
+*
+* All the define comments come directly from the Bugzilla Perl code
+*/
+if ($flaredir == '')
+    die("You must specify a Flare installation to use files from.");
+else {
+    require_once($flaredir."/config-inc.php");
+    require_once($flaredir."/db/mysql.php");
+}
+
+if ($username == '')
+    die("Username cannot be empty!");
+
+if ($password == '')
+    die("Password cannot be empty!");
+
+$db     = new DB(_BUGS_DBUSER, _BUGS_DBPWRD, _BUGS_DBUSE, _BUGS_DBSERVER, _BUGS_DBPORT);
+
+define('REL_ASSIGNEE', 0);
+define('REL_QA', 1);
+define('REL_REPORTER', 2);
+define('REL_CC', 3);
+define('REL_VOTER', 4);
+
+$RELATIONSHIPS = array(REL_ASSIGNEE, REL_QA, REL_REPORTER, REL_CC,REL_VOTER);
+
+# There are two sorts of event - positive and negative. Positive events are
+# those for which the user says "I want mail if this happens." Negative events
+# are those for which the user says "I don't want mail if this happens."
+#
+# Exactly when each event fires is defined in wants_bug_mail() in User.pm; I'm
+# not commenting them here in case the comments and the code get out of sync.
+define('EVT_OTHER', 0);
+define('EVT_ADDED_REMOVED', 1);
+define('EVT_COMMENT', 2);
+define('EVT_ATTACHMENT', 3);
+define('EVT_ATTACHMENT_DATA', 4);
+define('EVT_PROJ_MANAGEMENT', 5);
+define('EVT_OPENED_CLOSED', 6);
+define('EVT_KEYWORD', 7);
+define('EVT_CC', 8);
+define('EVT_DEPEND_BLOCK', 9);
+
+$POS_EVENTS = array(	EVT_OTHER,
+            EVT_ADDED_REMOVED,
+            EVT_COMMENT,
+            EVT_ATTACHMENT,
+            EVT_ATTACHMENT_DATA,
+            EVT_PROJ_MANAGEMENT,
+            EVT_OPENED_CLOSED,
+            EVT_KEYWORD,
+            EVT_CC,
+            EVT_DEPEND_BLOCK
+);
+
+define('EVT_UNCONFIRMED', 50);
+define('EVT_CHANGED_BY_ME', 51);
+
+$NEG_EVENTS = array(EVT_UNCONFIRMED, EVT_CHANGED_BY_ME);
+
+# These are the "global" flags, which aren't tied to a particular relationship.
+# and so use REL_ANY.
+define('EVT_FLAG_REQUESTED', 100); # Flag has been requested of me
+define('EVT_REQUESTED_FLAG', 101); # I have requested a flag
+
+$GLOBAL_EVENTS = array(EVT_FLAG_REQUESTED, EVT_REQUESTED_FLAG);
+
+
+/**
+* The following function was taken directly from the Util.pm Perl
+* module that comes with Bugzilla. I needed to port it because
+* Bugzilla uses a special crypt function when creating user accounts
+*/
+function bz_crypt($password) {
+    # The list of characters that can appear in a salt.  Salts and hashes
+    # are both encoded as a sequence of characters from a set containing
+    # 64 characters, each one of which represents 6 bits of the salt/hash.
+    # The encoding is similar to BASE64, the difference being that the
+    # BASE64 plus sign (+) is replaced with a forward slash (/).
+    $saltchars = (0,1,2,3,4,5,6,7,8,9,
+        'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+        'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+        '.', '/');
+
+    # Generate the salt.  We use an 8 character (48 bit) salt for maximum
+    # security on systems whose crypt uses MD5.  Systems with older
+    # versions of crypt will just use the first two characters of the salt.
+    $salt = '';
+
+    for ( my $i=0 ; $i < 8 ; ++$i ) {
+        $salt .= $saltchars[rand(0,64)];
+    }
+
+    # Crypt the password.
+    $cryptedpassword = crypt($password, $salt);
+
+    # Return the crypted password.
+    return $cryptedpassword;
+}
+
+function insert_new_user($username,$password) {
+    $sql = array(
+        "insert" => "INSERT INTO profiles (login_name,realname,cryptpassword,disabledtext,refreshed_when) VALUES(':1',':2',':3',':4','1901-01-01 00:00:00')",
+        'insert_rel' => "INSERT INTO email_setting (user_id,relationship,event) VALUES (':1',':2',':3')",
+        "userid" => "SELECT userid FROM profiles WHERE login_name LIKE '%:1%'"
+    );
+
+    $cryptpassword = bz_crypt($password);
+    $disabledtext='';
+
+    $stmt1 = $db->prepare($sql['insert']);
+    $stmt2 = $db->prepare($sql['insert_rel']);
+    $stmt3 = $db->prepare($sql['userid']);
+
+    $stmt1->execute($username,$realname,$cryptpassword,$disabledtext);
+
+    $stmt3->execute($username);
+    $userid = $stmt3->result(0);
+
+    foreach($RELATIONSHIPS as $key => $rel) {
+        foreach($POS_EVENTS as $key_p, $event){
+            # These "exceptions" define the default email preferences.
+            #
+            # We enable mail unless the change was made by the user, or it's
+            # just a CC list addition and the user is not the reporter.
+            $stmt2->execute($userid, $rel, $event);
+        }
+
+        foreach($NEG_EVENTS as $key_n => $event) {
+            $stmt2->execute($userid, $rel, $event);
+        }
+    }
+
+    foreach($GLOBAL_EVENTS as $key => $event) {
+        $stmt2->execute($userid, $REL_ANY, $event);
+    }
+}
+?>

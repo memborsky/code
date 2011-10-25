@@ -1,0 +1,62 @@
+This version of Flare has successfully been tested and installed on systems supporting
+the following architecture.
+
+This is a list of the software that you must have installed prior to installing
+Flare. If you are missing any of the items below, proper operation of Flare
+cannot be guaranteed.
+
+- PHP
+	Flare was written soley for PHP5 and will therefore NOT work on PHP versions less than 5.
+
+	Flare has been tested on the following PHP versions
+		- 5.0.2
+		- 5.0.3
+		- 5.0.5
+
+- MySQL
+	Flare has been tested on the following MySQL versions
+		- 4.1
+		- 5.0.18
+
+- Linux Operating system
+  Flare was written on linux and has only been tested so far on linux.
+  There are several features implemented on Flare that are completely dependant
+  on the underlying operating system. As such, the Flare development team encourages
+  you to use a linux variant to support Flare. There is no current or planned support
+  for Windows.
+
+  Flare has been tested on the following platforms
+  	- Debian Sarge 3.1
+	- Fedora Core 2
+	- Ubuntu Breezy Badger
+
+- Supported Browser
+  IE is certainly supported, but the lack of accurate CSS handling by IE makes viewing
+  Flare pages less than inviting. The Flare development team strongly recommends that
+  all Flare users use a current web browser such as Firefox. IE lacks many of the capabilities
+  of modern browsers, and is therefore not a concern of the Flare development team.
+  
+  Flare has been tested on the following browsers
+  	- Firefox 1.0.3		Works
+	- Firefox 1.0.7		Works
+	- Firefox 1.5 		(Works, but install scripts are quirky at the moment)
+	- Firefox 1.5.0.1 	(Works, but install scripts are quirky at the moment)
+	- Internet Explorer 6 	(Works but some stylesheets may be quirky)
+	- Konqueror		Works
+
+PEAR Libraries (Installed in the order listed below, otherwise you may run into errors)
+	- MIME_Type 		= 1.0.0
+	- File_Archive 		= 1.5.3
+	- Pager		 	= 2.3.5
+	- HTML_Common 		= 1.2.1
+	- HTML_Progress		= 1.2.1
+	- Image_Color		= 1.0.2
+	- Image_Canvas		= 0.2.1		Must be force installed with -f (pear install -f Image_Canvas)
+	- Image_Graph		= 0.6.0		Must be force installed with -f (pear install -f Image_Graph)
+	- HTTP			= 1.4.0
+	- HTTP_Header		= 1.2.0
+	- HTTP_Download		= 1.1.1
+	- Console_Getopt	= 1.2 		Used for flarecmd
+	- Mail			= 1.1.9 	Used for mailing users
+	- Net_SMTP		= 1.2.7		Used for mailing users
+	- Net_Socket		= 1.0.6		Used for mailing users

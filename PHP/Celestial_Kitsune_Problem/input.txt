@@ -1,0 +1,7 @@
+001 Baseline 30 40
+001 Point 1 10 20
+001 Point 2 60 50
+002 Baseline 60 60
+002 Point 1 20 90
+002 Point 2 90 30
+

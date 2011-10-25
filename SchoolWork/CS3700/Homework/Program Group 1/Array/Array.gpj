@@ -1,0 +1,12 @@
+!354;s
+A
+SAU0
+SCU0
+S+U0
+SJU0CLASSPATH+=.%PATH_SEP\012CLASSPATH=+%PATH_SEP%EXTENSION_PATH%SEPclasses%SEPuser%PATH_SEP%EXTENSION_PATH%SEPclasses%SEPsystem\012PATH=+%PATH_SEP%JAVA_BIN_DIR\012Compile\012NOT_FOUND_MESSAGE==Make sure you have the full JDK (J2SE SDK or other), not just the JRE, installed.\\nThe J2SE SDK is available from java.sun.com.\012
+SOU0
+SPU0
+!703;d
+[\012  grasp [\012   legendy -38.5\012   legendx -1.0\012   winflags 2\012   height 657\012   width 505\012   wbp 0\012   initlayout 0\012   yoffs 0.0\012   xoffs 0.0\012   scale 1.0\012   otherflags 11\012   visflags 118423679\012  ]\012  directed 1\012  node [\012   ClassInfo [\012    fields "Array\\011()V\\011c\\0111\\011\011main\\011([Ljava/lang/String;)V\\011\\0119\\011"\012    access 16481\012    classname "Array"\012    fromclassfiledate 1107319433062\012    fromclassfilename "%\011Array.class"\012    fromfilename "%\011Array.java"\012   ]\012   id 0\012   graphics [\012    center [\012     x 0.0\012     y 0.0\012     z 0.0\012    ]\012   ]\012   vgj [\012    flags 0\012   ]\012  ]\012 ]!27;f
+%	Array.class
+%	Array.java

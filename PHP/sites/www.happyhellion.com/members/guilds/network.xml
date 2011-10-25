@@ -1,0 +1,181 @@
+<?xml version="1.0" standalone="yes" ?>
+<guild name="network">
+  <leader>
+    <name>Zman Reficul Hell</name>
+    <hp>666</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>zman</short>
+  </leader>
+
+  <officer>
+    <name>Jankly Jankerson</name>
+    <hp>150</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>jank</short>
+  </officer>
+  <officer>
+    <name>Mr James Hetfield</name>
+    <hp>200</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>james</short>
+  </officer>
+  <officer>
+    <name>Nightmare Steele</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>nightmare</short>
+  </officer>
+  <officer>
+    <name>The Dork Master</name>
+    <hp>60</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>dork</short>
+  </officer>
+  <officer>
+    <name>Mi Wei Hung Lo</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>hung</short>
+  </officer>
+  <officer>
+    <name>Lady Lwolf</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>lwolf</short>
+  </officer>
+  <officer>
+    <name>Anita Caliy</name>
+    <hp>110</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>anita</short>
+  </officer>
+  <officer>
+    <name>Alimigty Xanth</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>xanth</short>
+  </officer>
+  <officer>
+    <name>Grim N Evil</name>
+    <hp>100</hp>
+    <link></link>
+    <avatar></avatar>
+    <short>grim</short>
+  </officer>
+  <officer>
+    <name>Capt Chris</name>
+    <hp>100</hp>
+    <link></link>
+    <avatar></avatar>
+    <short>capt</short>
+  </officer>
+  <officer>
+    <name>Mighty Zort</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>zort</short>
+  </officer>
+  <officer>
+    <name>Illia Caywood</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>illia</short>
+  </officer>
+
+  <member>
+    <name>Booti Call</name>
+    <hp>110</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>booti</short>
+  </member>
+  <member>
+    <name>Forking Icehole</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>fork</short>
+  </member>
+  <member>
+    <name>Ramza Teh</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>ramza</short>
+  </member>
+  <member>
+    <name>Eight Mile</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>eight</short>
+  </member>
+  <member>
+    <name>Warrior of Rane</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>rane</short>
+  </member>
+  <member>
+    <name>Hells Bells</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>hells</short>
+  </member>
+  <member>
+    <name>Daeron Elendil</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>daeron</short>
+  </member>
+  <member>
+    <name>Amber Mcfate</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>amber</short>
+  </member>
+  <member>
+    <name>Jakks The Blighted</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>jakks</short>
+  </member>
+  <member>
+    <name>Blood One</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>blood</short>
+  </member>
+  <member>
+    <name>Novak Starkiller</name>
+    <hp>100</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>novak</short>
+  </member>
+  <member>
+    <name>Hot Elf</name>
+    <hp>110</hp>
+    <avatar></avatar>
+    <link></link>
+    <short>elf</short>
+  </member>
+
+</guild>

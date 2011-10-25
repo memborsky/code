@@ -1,0 +1,39 @@
+<?php
+
+/**
+* Database Information. Fill this out as per your server configuration
+*/
+define ("_DBSERVER",  "localhost");
+define ("_DBPORT",    3306);
+define ("_DBUSER",    "root");
+define ("_DBPWRD",    "");
+define ("_DBUSE",     "flare");
+define ("_PREFIX",    "flare");
+
+/**
+* Database system that you are using. See supported databases below.
+*
+* Supported databases
+* -------------------
+* mysql   - MySQL Database
+* *pgsql  - Postgre SQL Server
+* *mssql  - Microsoft SQL Server
+* *oracle - Oracle
+*
+* * = Currently not supported but will be supported in the future.
+*
+* default: mysql
+*/
+define ("_DBSYSTEM", "mysql");
+
+/**
+* The type of connection to establish with the database
+*/
+define ("_CONNECT_TYPE", "connect");
+
+/**
+* Used to keep people from directly accessing files
+*/
+define ("_FLARE_INC", 1);
+
+?>

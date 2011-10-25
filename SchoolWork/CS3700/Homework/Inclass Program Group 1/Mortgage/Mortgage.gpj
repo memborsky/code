@@ -1,0 +1,8 @@
+!354;s
+A
+SAU0
+SCU0
+S+U0
+SJU0CLASSPATH+=.%PATH_SEP\012CLASSPATH=+%PATH_SEP%EXTENSION_PATH%SEPclasses%SEPuser%PATH_SEP%EXTENSION_PATH%SEPclasses%SEPsystem\012PATH=+%PATH_SEP%JAVA_BIN_DIR\012Compile\012NOT_FOUND_MESSAGE==Make sure you have the full JDK (J2SE SDK or other), not just the JRE, installed.\\nThe J2SE SDK is available from java.sun.com.\012
+SOU0
+SPU0

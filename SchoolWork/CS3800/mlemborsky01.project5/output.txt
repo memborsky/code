@@ -1,0 +1,253 @@
+Would you like to play a new game (y/Y)? 
+1    2    3    4    5    6    7    8    9    10   11   12   13
+QC   JD   AS   AD   AH   5C   3C   8S   TS   JS   2H   6S   2S
+TC   5D   JC   8H   9S   AC   6C   8C   3D   4D   6H   7C   3H
+6D   KD   8D   4H   7S   9C   4C   TD   7H   2D   7D   KC   5H
+TH   QH   KH   4S   9H   KS   9D   2C   5S   3S   QD   QS   JH
+Moving JH from pile 13 to 11
+Moving QD from pile 11 to 12
+Moving QS from pile 12 to 12
+Moving KC from pile 12 to 13
+Moving 5H from pile 13 to 5
+Moving 9H from pile 5 to 9
+Moving 5S from pile 9 to 5
+Moving 7S from pile 5 to 7
+Moving 9D from pile 7 to 9
+Moving 7H from pile 9 to 7
+Moving 4C from pile 7 to 4
+Moving 4S from pile 4 to 4
+Moving 4H from pile 4 to 4
+Moving 8H from pile 4 to 8
+Moving 2C from pile 8 to 2
+Moving QH from pile 2 to 12
+Moving 7C from pile 12 to 7
+Moving 6C from pile 7 to 6
+Moving KS from pile 6 to 13
+Moving 3H from pile 13 to 3
+Moving KH from pile 3 to 13
+Moving 2S from pile 13 to 2
+Moving KD from pile 2 to 13
+
+1    2    3    4    5    6    7    8    9    10   11   12   13
+QC   2S   3H   4H   5S   6C   7C   8H   9D   JS   JH   QH   KD
+TC   2C   AS   4S   5H   5C   7H   8S   9H   4D   2H   QS   KH
+6D   JD   JC   4C   AH   AC   7S   8C   TS   2D   6H   QD   KS
+TH   5D   8D   AD   9S   9C   3C   TD   3D   3S   7D   6S   KC
+
+Would you like to play a new game (y/Y)? 
+1    2    3    4    5    6    7    8    9    10   11   12   13
+QD   AS   4D   5H   AD   AH   4C   3D   QH   TC   6H   7H   KC
+3S   8C   2D   3C   KS   KH   5C   8H   9D   JH   6D   6C   4H
+7S   8D   7C   KD   9S   TD   JD   8S   9H   JS   4S   TH   3H
+6S   5S   2S   AC   9C   2C   5D   QS   7D   TS   2H   QC   JC
+Moving JC from pile 13 to 11
+Moving 2H from pile 11 to 2
+Moving 5S from pile 2 to 5
+Moving 9C from pile 5 to 9
+Moving 7D from pile 9 to 7
+Moving 5D from pile 7 to 5
+Moving 9S from pile 5 to 9
+Moving 9H from pile 9 to 9
+Moving 9D from pile 9 to 9
+Moving QH from pile 9 to 12
+Moving QC from pile 12 to 12
+Moving TH from pile 12 to 10
+Moving TS from pile 10 to 10
+Moving JS from pile 10 to 11
+Moving 4S from pile 11 to 4
+Moving AC from pile 4 to 1
+Moving 6S from pile 1 to 6
+Moving 2C from pile 6 to 2
+Moving 8D from pile 2 to 8
+Moving QS from pile 8 to 12
+Moving 6C from pile 12 to 6
+Moving TD from pile 6 to 10
+Moving JH from pile 10 to 11
+Moving 6D from pile 11 to 6
+Moving KH from pile 6 to 13
+Moving 3H from pile 13 to 3
+Moving 2S from pile 3 to 2
+Moving 8C from pile 2 to 8
+Moving 8S from pile 8 to 8
+Moving 8H from pile 8 to 8
+Moving 3D from pile 8 to 3
+Moving 7C from pile 3 to 7
+Moving JD from pile 7 to 11
+Moving 6H from pile 11 to 6
+Moving AH from pile 6 to 1
+Moving 7S from pile 1 to 7
+Moving 5C from pile 7 to 5
+Moving KS from pile 5 to 13
+Moving 4H from pile 13 to 4
+Moving KD from pile 4 to 13
+Moving KC from pile 13 to 13
+
+1    2    3    4    5    6    7    8    9    10   11   12   13
+AH   2S   3D   4H   5C   6H   7S   8H   9D   TD   JD   QS   KC
+AC   2C   3H   4S   5D   6D   7C   8S   9H   TS   JH   QC   KD
+QD   2H   4D   5H   5S   6C   7D   8C   9S   TH   JS   QH   KS
+3S   AS   2D   3C   AD   6S   4C   8D   9C   TC   JC   7H   KH
+
+Would you like to play a new game (y/Y)? 
+1    2    3    4    5    6    7    8    9    10   11   12   13
+2H   4D   JH   3H   5H   AD   JD   9D   5S   3S   6D   9H   TH
+TS   8H   JS   4C   2C   2S   AH   3C   5D   JC   7S   5C   KD
+9S   7C   6C   8D   KS   8S   AS   3D   9C   TC   AC   6S   4H
+7H   7D   KC   KH   TD   QS   8C   QC   4S   QH   6H   QD   2D
+Moving 2D from pile 13 to 2
+Moving 7D from pile 2 to 7
+Moving 8C from pile 7 to 8
+Moving QC from pile 8 to 12
+Moving QD from pile 12 to 12
+Moving 6S from pile 12 to 6
+Moving QS from pile 6 to 12
+Moving 5C from pile 12 to 5
+Moving TD from pile 5 to 10
+Moving QH from pile 10 to 12
+Moving 9H from pile 12 to 9
+Moving 4S from pile 9 to 4
+Moving KH from pile 4 to 13
+Moving 4H from pile 13 to 4
+Moving 8D from pile 4 to 8
+Moving 3D from pile 8 to 3
+Moving KC from pile 3 to 13
+Moving KD from pile 13 to 13
+Moving TH from pile 13 to 10
+Moving TC from pile 10 to 10
+Moving JC from pile 10 to 11
+Moving 6H from pile 11 to 6
+Moving 8S from pile 6 to 8
+Moving 3C from pile 8 to 3
+Moving 6C from pile 3 to 6
+Moving 2S from pile 6 to 2
+Moving 7C from pile 2 to 7
+Moving AS from pile 7 to 1
+Moving 7H from pile 1 to 7
+Moving AH from pile 7 to 1
+Moving 9S from pile 1 to 9
+Moving 9C from pile 9 to 9
+Moving 5D from pile 9 to 5
+Moving KS from pile 5 to 13
+
+1    2    3    4    5    6    7    8    9    10   11   12   13
+AH   2S   3C   4H   5D   6C   7H   8S   9C   TC   JC   QH   KS
+AS   2D   3D   4S   5C   6H   7C   8D   9S   TH   6D   QS   KD
+2H   4D   JH   3H   5H   6S   7D   8C   9H   TD   7S   QD   KC
+TS   8H   JS   4C   2C   AD   JD   9D   5S   3S   AC   QC   KH
+
+Would you like to play a new game (y/Y)? 
+1    2    3    4    5    6    7    8    9    10   11   12   13
+6H   JH   JC   4H   3H   5H   AS   5D   7D   TS   7S   9C   6S
+QH   3C   TC   JD   QS   KC   AD   4C   8C   2D   9S   AH   8D
+KS   6C   5C   7C   2C   3D   4D   9D   TD   3S   KH   7H   KD
+9H   4S   TH   2S   8S   QC   8H   QD   AC   5S   6D   2H   JS
+Moving JS from pile 13 to 11
+Moving 6D from pile 11 to 6
+Moving QC from pile 6 to 12
+Moving 2H from pile 12 to 2
+Moving 4S from pile 2 to 4
+Moving 2S from pile 4 to 2
+Moving 6C from pile 2 to 6
+Moving 3D from pile 6 to 3
+Moving TH from pile 3 to 10
+Moving 5S from pile 10 to 5
+Moving 8S from pile 5 to 8
+Moving QD from pile 8 to 12
+Moving 7H from pile 12 to 7
+Moving 8H from pile 7 to 8
+Moving 9D from pile 8 to 9
+Moving AC from pile 9 to 1
+Moving 9H from pile 1 to 9
+Moving TD from pile 9 to 10
+Moving 3S from pile 10 to 3
+Moving 5C from pile 3 to 5
+Moving 2C from pile 5 to 2
+Moving 3C from pile 2 to 3
+Moving TC from pile 3 to 10
+Moving 2D from pile 10 to 2
+Moving JH from pile 2 to 11
+Moving KH from pile 11 to 13
+Moving KD from pile 13 to 13
+Moving 8D from pile 13 to 8
+Moving 4C from pile 8 to 4
+Moving 7C from pile 4 to 7
+Moving 4D from pile 7 to 4
+Moving JD from pile 4 to 11
+Moving 9S from pile 11 to 9
+Moving 8C from pile 9 to 8
+Moving 5D from pile 8 to 5
+Moving QS from pile 5 to 12
+Moving AH from pile 12 to 1
+Moving KS from pile 1 to 13
+Moving 6S from pile 13 to 6
+Moving KC from pile 6 to 13
+
+1    2    3    4    5    6    7    8    9    10   11   12   13
+AH   2D   3C   4D   5D   6S   7C   8C   9S   TC   JD   QS   KC
+AC   2C   3S   4C   5C   6C   7H   8D   9H   TD   JH   QD   KS
+6H   2S   3D   4S   5S   6D   AS   8H   9D   TH   JS   QC   KD
+QH   2H   JC   4H   3H   5H   AD   8S   7D   TS   7S   9C   KH
+
+Would you like to play a new game (y/Y)? 
+1    2    3    4    5    6    7    8    9    10   11   12   13
+6D   JC   2D   KD   4H   3H   4D   8C   4S   QH   9S   TD   7H
+5S   4C   3S   AS   QC   TH   5H   JD   8H   JS   KS   AD   7C
+2C   5C   AH   6C   QS   9D   JH   5D   8S   TS   2S   9H   8D
+9C   AC   6S   KC   3D   QD   3C   2H   KH   7D   7S   6H   TC
+Moving TC from pile 13 to 10
+Moving 7D from pile 10 to 7
+Moving 3C from pile 7 to 3
+Moving 6S from pile 3 to 6
+Moving QD from pile 6 to 12
+Moving 6H from pile 12 to 6
+Moving 9D from pile 6 to 9
+Moving KH from pile 9 to 13
+Moving 8D from pile 13 to 8
+Moving 2H from pile 8 to 2
+Moving AC from pile 2 to 1
+Moving 9C from pile 1 to 9
+Moving 8S from pile 9 to 8
+Moving 5D from pile 8 to 5
+Moving 3D from pile 5 to 3
+Moving AH from pile 3 to 1
+Moving 2C from pile 1 to 2
+Moving 5C from pile 2 to 5
+Moving QS from pile 5 to 12
+Moving 9H from pile 12 to 9
+Moving 8H from pile 9 to 8
+Moving JD from pile 8 to 11
+Moving 7S from pile 11 to 7
+Moving JH from pile 7 to 11
+Moving 2S from pile 11 to 2
+Moving 4C from pile 2 to 4
+Moving KC from pile 4 to 13
+Moving 7C from pile 13 to 7
+Moving 5H from pile 7 to 5
+Moving QC from pile 5 to 12
+Moving AD from pile 12 to 1
+Moving 5S from pile 1 to 5
+Moving 4H from pile 5 to 4
+Moving 6C from pile 4 to 6
+Moving TH from pile 6 to 10
+Moving TS from pile 10 to 10
+Moving JS from pile 10 to 11
+Moving KS from pile 11 to 13
+Moving 7H from pile 13 to 7
+Moving 4D from pile 7 to 4
+Moving AS from pile 4 to 1
+Moving 6D from pile 1 to 6
+Moving 3H from pile 6 to 3
+Moving 3S from pile 3 to 3
+Moving 2D from pile 3 to 2
+Moving JC from pile 2 to 11
+Moving 9S from pile 11 to 9
+Moving 4S from pile 9 to 4
+Moving KD from pile 4 to 13
+
+1    2    3    4    5    6    7    8    9    10   11   12   13
+AS   2D   3S   4S   5S   6D   7H   8H   9S   TS   JC   QC   KD
+AD   2S   3H   4D   5H   6C   7C   8S   9H   TH   JS   QS   KS
+AH   2C   3D   4H   5C   6H   7S   8D   9C   TC   JH   QD   KC
+AC   2H   3C   4C   5D   6S   7D   8C   9D   QH   JD   TD   KH
+
+Would you like to play a new game (y/Y)? 

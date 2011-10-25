@@ -1,0 +1,92 @@
+This document details the steps necessary to create a simple report.
+
+Reports in Flare are used by the Reporting System to provide an overall view
+of a particular set of data managed by Flare. Examples of reports include
+
+	- Most active visitors
+	- Denied hosts
+	- Users who are close to quota
+	- and groups who are close to quota
+
+More reports can be created at will to address any further information you
+wish to collate for managerial purposes and show to those in charge.
+
+Flare uses a very simple API for reports. The following rules should be
+adhered to, so as to make sure everything functions properly.
+
+1. All reports should be self contained in a single file
+
+2. This file should follow the naming convention below
+
+	report.report_name.php
+
+   Make sure to include the word 'report' at the beginning of the filename
+
+3. Reports should be placed in the Reporting System's "reports" folder
+   inside of the "extensions" folder in Flare. Typical installs will locate
+   this folder at the following relative path
+
+	extensions/Reporting_System/reports/
+
+4. A reports templates should be placed in the "reports" folder inside
+   the admin templates location. Typical installs will locate this folder
+   at the following relative path
+
+	templates/default/templates/admin/reports/
+
+5. Reports should be a single class
+
+	class report_name
+
+6. This class must have at least 2 variables
+
+	private report_name	(Not to exceed 64 characters)
+	private report_desc	(Not to exceed 255 characters)
+
+7. The above two variables should be assigned in the class constructor.
+
+8. All reports must include a install, uninstall, show and run methods. These
+   must all be public methods.
+
+	public function install()
+	public function uninstall()
+	public function show()
+	public function run()
+
+9. get and set methods should be used for all variable assignment and retrieval
+
+	public function __get( $key )
+	public function __set( $key, $value )
+
+By sticking to this clear API, Flare should have no trouble recognizing your
+report and installing it correctly.
+
+The purpose of the show and the run is to direct any actions intended to be sent
+to the report and to act on those actions. If you are familiar with the design of
+Flare, you'll note that I repeatedly use the concept of index files to contain
+switch statements to switch actions sent to the page.
+
+A report's show() method works in exactly the same way. You should use this file
+to import any variables that may be sent to the script, and it should act as the
+traffic cop of your report. Normally you would call the run() method from inside
+the show method.
+
+The run() method is the meat and potatoes of the report. It is responsible for
+processing the data you wish to report on. You should call it from inside the
+show() method.
+
+Reports are very simple to write if you know how you're going to go about getting
+the data that you want, out of the database. To create a new report, simply start
+by copying over one of the existing reports and modifying it to be a new report.
+
+Change the report_name and report_desc as well as the class name. Also remove any
+extra methods not specified above and modify the required methods to suite your
+reports need.
+
+That's all there is to creating new reports. When you have added a new one, simply
+surf to the Reporting System's admin page and the new reports will automatically
+be discovered and added to the system. Clicking their link will invoke their
+show() method and you will be able to see the fruits of your labor.
+
+Regards,
+Tim Rupp

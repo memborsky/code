@@ -1,0 +1,248 @@
+This is a list of standards that I am defining for use when writing this program.
+
+These rules effect the following people
+1. All fulltime developers enrolled at Indiana Tech or abroad who contribute to this project
+2. Anyone who submits patches to the flare-dev mailing list for inclusion in CVS
+
+If you do not adhere to these coding standards, your code will not be committed to CVS.
+Also, if you as a developer do not follow these guidelines, you will be directly responsible
+for negatively impacting this project and the features or fixes you submitted.
+
+Please take the time to read ALL of these. Since we only have a select group of people
+with commit privileges to our CVS system, please do not inconvenience them by not following
+these standards. If you do, your code will either be outright rejected, or will be dropped
+in our "to do" directory where we may not get around to seeing it for a while
+( however everyone will be able to see who sent us these non-conforming documents, and they
+will be able to laugh at you. You have been warned )
+
+
+
+
+These standards relate directly and solely to Indiana Tech's Flare project. If for any reason
+these standards need to be added to another development project, please take the time to
+scan this list and remove all those that are unneccesary for your project. Also, change the
+references to 'Flare' and 'Indiana Tech' to reflect your own organizations goals and ambitions.
+
+Thank you,
+Indiana Tech Flare Development Team
+
+
+
+
+
+CODING STANDARDS FOR FLARE PROJECT
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+
+. Variables will be defined using underscores and NOT camel caps.
+	Underscores
+		(For variables)
+		$this_is_a_variable
+
+		(For constants)
+		THIS_IS_A_CONSTANT
+
+		(For language constants)
+		_THIS_IS_A_CONSTANT
+
+		(For Smarty template variables)
+		$THIS_IS_A_VARIABLE
+
+		(For methods,functions)
+		method_or_function()
+
+	Camel Caps (NOT ALLOWED)
+		(For variables)
+		$ThisIsAVariable
+
+		(For constants)
+		_THISISACONSTANT
+
+		(For methods,functions and classes)
+		MethodOrFunction()
+
+. Language constants will ALWAYS start with an underscore ( _ ). This applies to
+  variables inside and outside of Smarty. If you define a lang variable in the lang
+  file, the associated Smarty variable should have the exact same name, except it will
+  have a $ sign before it.
+	Ex.
+		Language Constant --> _DBNAME = {$_DNAME} <-- Smarty variable
+
+. Design code should ALWAYS be seperated from logic code. Use the template
+  system if you wish to include design code.
+
+. All text that can be seen on the screen should be contained in the appropriate
+  language file for your language. If you add files that have new hard coded language
+  in them, create a new constant for it in the language file.
+
+. If you are including display code in your logic code (which you shouldnt be doing anyway),
+  use echos and if necessary, use multi-lines as shown in the example.
+	Ex. (single)
+		echo "I am one line of display code. I will be printed to the screen";
+
+	Ex. (multi-line)
+		echo "I am more than "
+		. "one line of display code "
+		. "I will be printed to "
+		. "the screen";
+
+. All code must be properly tabbed and braced ( except single line logic ). See example below.
+	Ex. Proper (multi-line)
+		function this() {
+			if ($value_one) {
+				echo $value;
+			} else {
+				echo $value_2;
+			}
+		}
+	Ex. Proper (single-line)
+		if ($this)
+			echo $that;
+		else
+			echo $not_that;
+
+	Ex. Improper
+		function this()
+			{
+				if($value_one)
+					{
+						echo $value;
+					}
+				else
+					{
+						echo $value_2;
+					}
+			}
+
+. You will document properly all variables, methods, classes, functions, and any additional
+  comments that may be needed to help others understand your code. Flare should be coded to
+  phpdoc standards. We should be able to run phpdoc at any time and be given a correct layout
+  of the Flare API. See example below.
+	Ex.
+		/**
+		* I am a comment for a variable
+		*/
+		$variable = '';
+
+		/**
+		* test - This is a short description
+		*
+		* This is an extended description
+		* it can be multiple lines
+		*
+		* @access public
+		* @param integer $test Stores integer test value.
+		* @returns bool
+		*/
+		public function test($var) {
+			if ($var == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+. There are several variables available to all developers.
+
+	$db	- Database abstraction layer
+	$tpl	- Template system
+	$log	- Logging system you can use to send log entries to Flare
+	$cfg	- All config items store in config database table
+	$ext	- Information about your current extension.
+
+. To use the database layer, follow these instructions.
+
+	1. Set the variable in your class!
+	   You will not be able to access any of the variables in your functions or classes unless
+	   you first set them.
+
+		Example.
+		$page->__set("db",$db);
+
+	   The variable's scope is global, so you will be able to see them until you need to use 
+	   them in your class. Flare vars should be set in either your index.php or admin.php page
+	   for your extension. They can also be set in your extension's constructor.
+
+	   Under no circumstances should you make the variables global to use them. This is just poor
+	   practice. So that means none of this in your methods!
+
+		global $db, $tpl	<-- BAD!
+
+	2. Prepare a query. 
+		*NOTE: You should not have variables in the query that you prepare. Instead, use the
+			much simpler syntax below.
+
+			$query = "SELECT item1, item2 FROM table WHERE id1=':1'"
+
+			Note the :1. This will be important later.
+
+	   This will return a query object to you that you can work with to your hearts content. 
+	   This also allows you to store and execute all your queries at the start of each page.
+
+		$stmt = db->prepare($query);
+
+	3. After you have prepared the query, you have a statement object stored in $stmt.
+	   you can then execute the query.
+
+	4. To execute the query and pass info to the query, use the syntax below.
+
+		$stmt->execute($val, $val2, $val3, $val4);
+
+	   This will execute the query using the passed variables to replace the places in your
+	   query statement that begin with :1, :2, :3 ... :n
+
+	   You can pass as many variables to the execute function as you want. Also, you do not
+	   need to escape common punctuation before you send the data to execute(). All common
+	   punctuation is escaped automatically before the query is executed.
+
+	5. Once you have executed the query, and assuming the query you wrote was correct, you
+	   now have a statement object that contains all your resulting data. You can retrieve
+	   the data using the supplied fetch commands on the object.
+
+. If you are writing an extension or page that submits data via a form, there are two simple lines
+  that you MUST include in each form that you create. As an example, I will use the Authentication
+  extension.
+
+  Make it a habit to put these as the first two lines after the initial <form> tag. These are required
+  so that the system will know where to forward your request. Otherwise, you'll be sent to the default
+  extension's homepage.
+
+	<input type='hidden' name='extension' value='Authentication'>
+	<input type='hidden' name='action' value='login'>
+
+  As you can see we are telling the system to forward us to the Authentication extension and we
+  are passing an action to perform when we get there.
+
+  All forms should point to the file 'index.php' (unless you're writing code specifically for the
+  admin part of your extension; in which case you would point to admin.php). Once you add the two 
+  other lines, you will find all your variables will be passed to your extension and they will 
+  reside in whichever superglobal you used to send them to the page (either $_GET or $_POST).
+
+  DO NOT retrieve the variable values directly from $_GET or $_POST or whatever. Instead, use
+  the provided importing function contained in the masterfile.php file.
+
+	$myvar = import_var('myvar', 'P');
+
+  The above code will import the form variable 'myvar' from the superglobal $_POST and will store
+  it in the local variable $myvar.
+
+  Flare allows you to retrieve any value from a PHP superglobal by using this function. The available
+  superglobal identifiers are...
+
+	P	-	$_POST
+	G	-	$_GET
+	S	-	$_SESSION
+	C	-	$_COOKIE
+	R	-	$_REQUEST
+	SE	-	$_SERVER
+
+  import_var also allows you to specify the identifier as a lowercase letter, however uppercase is
+  what is used throughout the code, so you should stick with uppercase.
+
+. Several user levels exist that the system uses to determine if you should be allowed access to
+  a certain part of the system. Those user levels are listed below.
+
+	0	-	Admin		- Full access
+	10-99	-	Operator	- Semi privileged access
+	100-999	-	Normal User	- Basic set of privileges. Default for new users
+	> 1000	-	Guest		- Fully restricted access except to extensions marked to
+					  allow this user account access. ( such as Help and Authentication )

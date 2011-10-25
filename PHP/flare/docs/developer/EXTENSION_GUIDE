@@ -1,0 +1,241 @@
+This guide will walk you through the process of creating extensions for Flare.
+
+The process itself is quite simple and only requires that you have the skills
+necessary to code your extension. This primarily involves having some knowledge
+of PHP, the language that Flare and (we assume) your extension is written in.
+
+We'll start by giving you an overview of what extensions are in Flare.
+
+Extensions exist because the original codebase for Flare needed to be dynamic 
+and modular. Flare also needed to be supported by members of the Open Souce 
+Committee after the lead developers graduated. As such, Flare extensions were
+built with one principal in mind.
+
+	- Keep it simple
+
+A typical Flare extension consists of 4 parts
+
+	- An index.php page
+	- The "do stuff" code
+	- Templates
+	- An admin.php page
+
+
+AN INDEX PAGE
+=============
+The index page is nothing more than a PHP switch statement that contains cases
+for each operation you want to do. Refer to the layout below for an example
+on how your index.php page should be structured
+
+
+example index.php
+-----------------
+<?php
+
+defined( '_FLARE_INC' ) or die( "You can't access this file directly." );
+
+require_once('class.HelloWorld.php');
+
+$page = new HelloWorld();
+
+$page->__set("db",$db);
+$page->__set("tpl",$tpl);
+$page->__set("log",$log);
+$page->__set("cfg",$cfg);
+$page->__set("ext",$ext);
+
+switch($flare_action) {
+	case "show_say_hello":
+		$result = $page->show_say_hello();
+
+		$page->tpl->assign('_HELLO_VAR', $result);
+		$page->tpl->display('hello_world.tpl');
+		break;
+}
+?>
+-----------------
+
+
+Let's take a look at what's going on here.
+
+First, there is a function call, defined(), that checks to see if a certain variable
+is defined. It is checking to make sure that the config file exists and was included,
+because that constant is defined in the config file. You shouldn't remove this unless
+you want to allow people direct access to your extension's code.
+
+Next, is a require. In this case, we are requiring the class that our extension resides
+in. You can require as many classes or function lists as you want.
+
+After we have included the class we are going to use, we create a new instance of the
+class and store it (by convention) in a variable called $page.
+
+Next, we call several __set statements. What these are doing is registering what Flare
+refers to as "Flare vars" with your extension. By registering these variables with your
+extension, you can use the provided methods of Flare to, for example, query databases,
+or display output, or read configuration values. Flare provides several variables, 
+by default, to all extensions. They are listed below.
+
+	$db	= Database object. Used for querying the database
+	$tpl	= Template object. Used for creating and displaying your pages
+	$log	= Log object. Used to log any data to Flare's system logs that you define
+	$cfg	= Configuration Object. Stores all the available config values, indexed
+		  by variable name, that are stored in the config table.
+	$ext	= Extension object. Contains all relevant info about your extension that
+		  you installed in the extensions table.
+
+After we create our new extension's object, $page, we get to the heart of the index page.
+
+The index page is the only page that the end user will see, so we only want to include
+actions that we want the end user to be able to perform. The switch statement switches
+on the action sent to the "traffic cop" of Flare. Any action, received via GET or POST,
+will be stored in $flare_action.
+
+By switching on that action, we determine what methods are called and what content is displayed.
+
+So for our example, lets say we sent a request in the URL to the Flare traffic cop. Here was
+our url
+
+	index.php?extension=HelloWorld&action=show_get_name
+
+This would direct the action "show_get_name" to our extension, "HelloWorld".
+
+By switching on the action we received, we see that we will then call the show_get_name
+method of our extension, and then break script execution (the script will be over by then).
+
+So that's how your extension will work for all the end users! Continue on though because
+there are several other topics we havent covered yet.
+
+
+"DO STUFF" CODE
+===============
+Once you've got your index page down pat, you might want to actually make it useful. How you
+set up the actual body of your code is completely up to you (we dont even require that you
+do that class stuff like we were doing before).
+
+The body of your code should be contained in whatever files you want to put in the extensions
+directory. If you only have one class, then you only have one class. If you have a whole hierarchy
+of classes then so be it, but something must be included in the index.php page or otherwise
+nothing will work.
+
+However you end up setting up your filestructure, you should re-include that defined call
+for each page in your directory
+
+	defined( '_FLARE_INC' ) or die( "You can't access this file directly." );
+
+For starters, let's write the class for our HelloWorld extension
+
+
+example class.HelloWorld.php
+----------------------------
+<?php
+	defined( '_FLARE_INC' ) or die( "You can't access this file directly." );
+
+	class HelloWorld {
+		public function __construct() {
+		}
+
+		public function say_hello() {
+			return "Hello World";
+		}
+	}
+
+?>
+----------------------------
+
+
+TEMPLATES
+=========
+The use of templates is an extension of your "do stuff" code.
+
+Flare uses Smarty. If you are familiar with how Smarty works, then more power to you. If you arent,
+then we strongly suggest you read the Smarty documentation at the link below. The whole concept
+of how Smarty works is out of the scope of this extension writing document, so PLEASE read the
+documentation provided at the Smarty website.
+
+	http://smarty.php.net/docs.php
+
+Once you have familiarized yourself with Smarty, you can get down to business.
+All your template files should be placed in the Flare templates directory.
+
+For example, if we had a template for our extension called hello_world.tpl, you would want to place
+it in
+	templates/default/templates/		(relative to the Flare base directory)
+
+There are some caveats to this approach. Namely, that your template will only work for the "default"
+theme. If other themes are in use, you will need to rearrange your template to support them. However
+the variables in the templates will not need to be changed, and thus the changes required will
+be completely cosmetic.
+
+After you place your templates in the correct directory, you will probably want to display your
+templates, and even do some simple variable assignment. The gist is shown below. We have a template
+called MyExtension.tpl and we are assigning a single variable called "MY_VAR" to the template
+
+	$tpl->assign("_HELLO_VAR", "Type your name to receive a 'hello'.");
+	$tpl->display("hello_world.tpl");
+
+
+AN ADMIN PAGE
+=============
+The admin page provides you, and subsequently your end admins, with some way to configure your
+extension or control any data it may manipulate.
+
+Most extensions have admin sections (like the Accounts extension or Groups extension). Others
+do not (like the Error Reporting extension; at least not _yet_ anyway).
+
+Whether you include an admin page is completely up to you, however creating an admin page is
+absolutely no different from creating an index page.
+
+To begin, first create an admin.php file in the same directory as you created your index.php file.
+
+The contents of the admin file are practically the same as the contents of the index file; one
+big switch statement.
+
+
+example admin.php
+-----------------
+<?php
+
+defined( '_FLARE_INC' ) or die( "You can't access this file directly." );
+
+require_once('class.HelloWorldAdmin.php');
+
+$page = new HelloWorldAdmin();
+
+$page->__set("db",$db);
+$page->__set("tpl",$tpl);
+$page->__set("log",$log);
+$page->__set("cfg",$cfg);
+$page->__set("ext",$ext);
+
+switch($flare_action) {
+        case "show_get_name":
+                $page->show_get_name();
+                break;
+        case "do_say_hello":
+		$name = import_var('name', 'P');
+                $page->do_say_hello($name);
+                break;
+}
+?>
+-----------------
+
+
+The one main difference, that has become convention with regards to the extension's admin classes
+is that filenames are generally the same as the normal class names, with the exception that 'Admin'
+is prefixed to the filename.
+
+For example, the Accounts class
+
+	class.Accounts.php
+
+Is the general class for all account actions. It is also the class that all the end user functions
+are created in.
+
+The admin class for the Accounts extension however
+
+	class.AccountsAdmin.php
+
+Needs to be able to perform all operations that normal users would perform, plus operations that
+admins would need to perform. Therefore, the admin class _extends_ the base class.
+
+Notice the naming convention used above, and try to stick with it for your extension.

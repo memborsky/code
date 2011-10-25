@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# @package Flare
+# @author Tim Rupp <tarupp01@indianatech.net>
+# @copyright GPL
+#
+# Copyright (C) 2004-2005 Indiana Tech Open Source Committee
+# Please direct all questions and comments to TARupp01@indianatech.net
+#
+# This program is free software; you can redistribute it and/or modify it under the terms of
+# the GNU General Public License as published by the Free Software Foundation; either version
+# 2 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program;
+# if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+
+if [ "$1" == "/" ]; then
+    echo "Username cannot be a slash"
+elif [ "$1" == "" ]; then
+    echo "Username cannot be empty"
+else
+    noexist=`finger $1 | grep 'Directory' | awk -F ' ' '{print $1}'`
+
+    if [ "$noexist" == "" ]; then
+        echo "Username not found on system. Exiting."
+    else
+        sudo deluser --remove-home $1
+        sudo delgroup $1
+
+        if [ -d /mnt/fuel/home/$1 ]; then
+            echo "Home directory still exists. Removing it."
+            sudo rm -rf /mnt/fuel/home/$1
+        fi
+    fi
+fi

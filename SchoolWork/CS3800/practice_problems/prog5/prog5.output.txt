@@ -1,0 +1,2 @@
+Please input a string - 
+I PREFER PI - is a palindrome.

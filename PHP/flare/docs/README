@@ -1,0 +1,32 @@
+Welcome to Flare!
+
+Thanks for taking the time to try out Flare, an open source online filesystem and group web-filesharing
+application developed by members of the Open Source Committee at Indiana Institute of Technology.
+
+Flare was developed as a sister project to F.U.E.L., the enterprise level fileserver that the OS Committee
+obtained during the Spring 2005 school year. To make using the system easier, and to therefore adopt new
+users quicker and future funding faster, it was determined that a system should be installed that allowed
+users with even rudimentary web experience, to use it.
+
+Flare was started as a response to this need.
+
+Our target audience consisted of students and faculty with Computer Science and/or Engineering backgrounds.
+The system needed to support roughly 500 users, and needed to be simple enough for Business majors to use ;-)
+in case we decided to extend the service to them.
+
+Other academic institutions offer similar services, but their solutions are either proprietary or just wouldnt
+work with our system configuration.
+
+Striving to remain as much an open source project as we could with F.U.E.L., we decided to develop a system
+whose operating base would also be open source.
+
+Flare should work ideally on any linux or BSD based system, assuming required software is installed. Flare
+was not developed for, nor is it intended to work at all, on Windows based systems. Other pay solutions exist
+that work for Windows.
+
+Flare is developed in PHP and uses PEAR extensions.
+
+We hope that you are able to put this system or any part of it, to use in one way or another.
+
+Regards,
+The Indiana Tech Open Source Committee

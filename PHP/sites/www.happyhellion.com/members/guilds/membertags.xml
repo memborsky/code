@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="yes" ?>
+<member>
+  <since>Member Since: </since>
+  <avatar>%w Avatar: </avatar>
+  <nickname>Nickname: </nickname>
+  <email>E-Mail: </email>
+  <gender>Gender: </gender>
+  <name>Real Name: </name>
+  <birthday>Birthday: </birthday>
+  <location>Location: </location>
+  <occupation>Occupation: </occupation>
+  <hobbies>Hobbies: </hobbies>
+  <npc>Favorite NPCs: </npc>
+  <quotes>Favorite Quotes: </quotes>
+  <other>Other Facts: </other>
+</member>

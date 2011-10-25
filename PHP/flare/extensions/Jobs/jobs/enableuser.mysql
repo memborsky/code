@@ -1,0 +1,85 @@
+#!/usr/bin/php
+
+<?php
+
+/**
+* @package Flare
+* @author Tim Rupp <tarupp01@indianatech.net>
+* @copyright GPL
+*
+* Copyright (C) 2004-2005 Indiana Tech Open Source Committee
+* Please direct all questions and comments to TARupp01@indianatech.net
+*
+* This program is free software; you can redistribute it and/or modify it under the terms of
+* the GNU General Public License as published by the Free Software Foundation; either version
+* 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+* See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program;
+* if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+* MA 02111-1307, USA.
+*/
+
+require ("Console/Getopt.php");
+
+$config_file	= '';
+$db_file 	= '';
+$cg 		= new Console_Getopt();
+
+/**
+* Allowed arguments include
+*/
+$allowedShortOptions 	= "";
+$allowedLongOptions 	= array("flaredir=","username=");
+
+// read the command line
+$args = $cg->readPHPArgv();
+
+// get the options
+$ret = $cg->getopt($args, $allowedShortOptions, $allowedLongOptions);
+
+// check for errors and die with an error message if there was a problem
+if (PEAR::isError($ret)) {
+    die ("Error in command line: " . $ret->getMessage() . "\n");
+    }
+
+$opts = $ret[0];
+if (sizeof($opts) > 0) {
+    // if at least one option is present
+    foreach ($opts as $o) {
+        switch ($o[0]) {
+            // handle the size option
+            case '--flaredir':
+                $flaredir = $o[1];
+                break;
+            case '--username':
+                $username = $o[1];
+                break;
+        }
+    }
+}
+
+if ($flaredir == '')
+    die("You must specify a Flare installation to use files from.");
+else {
+    require_once($flaredir."/config-inc.php");
+    require_once($flaredir."/db/mysql.php");
+}
+
+if ($username == '')
+    die("Username cannot be empty!");
+
+$db     = new DB(_DBUSER, _DBPWRD, _DBUSE, _DBSERVER, _DBPORT);
+
+$sql = array(
+    "enable" => "GRANT USAGE ON * . * TO ':1'@ 'localhost' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 ;"
+);
+
+$stmt1 = $db->prepare($sql['enable']);
+
+$stmt1->execute($username);
+
+?>

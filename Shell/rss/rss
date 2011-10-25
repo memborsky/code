@@ -1,0 +1,63 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+  echo "Usage:" `basename $0` "<URL> [# of headlines]" >&2 ; exit 1
+fi
+
+url=$1
+
+if [ -z $2 ]; then
+  headlines=-8
+else
+  headlines=-$(( $2 * 2 ))
+fi
+
+case $url in
+  *slashdot*)
+    if [ "url" != "http://rss.slashdot.org/Slashdot/slashdot" ]; then
+      url="http://rss.slashdot.org/Slashdot/slashdot"
+    fi
+    if [ -z $2 ]; then
+      headlines=-9
+    else
+      headlines=-$(( $2 * 2 + 1 ))
+    fi
+    ;;
+  gw-news)
+    url="http://www.guildwars.com/newsarchive/rss/news-current.xml"
+    ;;
+  gw-updates)
+    url="http://www.guildwars.com/support/gameupdates/rss/updates-current.xml"
+    ;;
+esac
+
+case $url in
+  *slashdot*)
+    data=`curl --silent $url | grep -E '(<title>|<description>)' | \
+      sed -e 's/&lt;/</g' | sed -e 's/&gt;/>/g' | \
+      sed -e 's/&quot;/"/g' | sed -e "s/&amp;#146;/'/g" | \
+      sed -e "s/&apos;/'/g" | sed -e 's/<a[^>]*>//g' -e 's/<\/a>//g' | \
+      sed -e 's/<p>*<\/p>//g' | sed -n '3,$p' | \
+      sed -e 's/^[ \t]*//;s/[ \t]*//' | \
+      sed -e 's/<title>//' -e 's/<\/title>//' -e 's/<description>/  /' \
+          -e 's/<\/description>//' | \
+      head $headlines | fmt -w 100`
+    ;;
+  *)
+    data=`curl --silent $url | grep -E '(<title>|<description>)' | \
+      sed -e 's/&lt;/</g' | sed -e 's/&gt;/>/g' | \
+      sed -e 's/&quot;/"/g' | sed -e "s/&amp;#146;/'/g" | \
+      sed -e "s/&apos;/'/g" | sed -e 's/<a[^>]*>//g' -e 's/<\/a>//g' | \
+      sed -e 's/<p>*<\/p>//' | sed -n '3,$p' | \
+      sed -e 's/^[ \t]*//;s/[ \t]*//' | \
+      sed -e 's/<title>//' -e 's/<\/title>//' -e 's/<description>/  /' \
+          -e 's/<\/description>//' | \
+      head $headlines | fmt -w 100`
+    ;;
+esac
+
+if [ -z "$data" ]; then
+  echo "No data can be found at $url"
+else
+  echo "$data"
+fi

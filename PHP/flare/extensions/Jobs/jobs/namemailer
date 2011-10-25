@@ -1,0 +1,81 @@
+#!/usr/bin/php
+
+<?php
+
+/**
+* @package Flare
+* @author Tim Rupp <tarupp01@indianatech.net>
+* @copyright GPL
+*
+* Copyright (C) 2004-2005 Indiana Tech Open Source Committee
+* Please direct all questions and comments to TARupp01@indianatech.net
+*
+* This program is free software; you can redistribute it and/or modify it under the terms of
+* the GNU General Public License as published by the Free Software Foundation; either version
+* 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+* See the GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along with this program;
+* if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+* MA 02111-1307, USA.
+*/
+
+require('Mail.php');
+
+$recipient 	= $argv[1];
+
+/**
+* Request types may only be of the following type
+*
+* sys - System account will be created
+* smb - Samba account will be created
+*
+* Depending which is specified will determine the
+* body content of the email that is sent out
+*/
+$request	= $argv[2];
+
+if ($request == '')
+	$request = "sys";
+
+switch ($request) {
+	case "sys":
+		$body = "Hi!\n\nWelcome to FUEL/Flare, a service offered by the Indiana Tech Open Source Committee.\n\n"
+		. "We've just finished setting up your system account with us. This will allow you to access your "
+		. "web area and home folder by using common FTP clients.\n\n"
+		. "We hope you enjoy the service!\n\n"
+		. "Kind regards,\n"
+		. "The Indiana Tech Open Source Committee";
+
+		$subject = "Your FUEL/Flare system account is ready!";
+		break;
+	case "smb":
+		$body = "Hi!\n\nWelcome to FUEL/Flare, a service offered by the Indiana Tech Open Source Committee.\n\n"
+		. "We've just finished setting up your Samba account with us. This will allow you to access your "
+		. "web area and home folder from your Windows/Mac/Linux desktop! You can now map your home area as a network "
+		. "drive!\n\n"
+		. "If you arent quite sure how to do this, we provide simple instructions (and pictures!) at our "
+		. "website. Check us out!\n\n"
+		. "https://flare.indianatech.net/osc\n\n"
+		. "We hope you enjoy the service!\n\n"
+		. "Kind regards,\n"
+		. "The Indiana Tech Open Source Committee";
+		
+		$subject = "Your FUEL/Flare Samba account is ready!";
+		break;
+}
+
+$headers["From"]    = "noreply@flare.indianatech.net";
+$headers["To"]      = $recipient;
+$headers["Subject"] = $subject;
+$params["host"] = "mail.indianatech.net";
+$params["port"] = "25";
+
+// Create the mail object using the Mail::factory method
+$mail_object =& Mail::factory("smtp", $params);
+$mail_object->send($recipient, $headers, $body);
+
+?>

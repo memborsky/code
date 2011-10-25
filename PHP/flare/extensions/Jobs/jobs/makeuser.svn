@@ -1,0 +1,83 @@
+#!/bin/sh
+#
+# @package Flare
+# @author Tim Rupp <tarupp01@indianatech.net>
+# @copyright GPL
+#
+# Copyright (C) 2004-2005 Indiana Tech Open Source Committee
+# Please direct all questions and comments to TARupp01@indianatech.net
+#
+# This program is free software; you can redistribute it and/or modify it under the terms of
+# the GNU General Public License as published by the Free Software Foundation; either version
+# 2 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program;
+# if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+
+if [ "$1" == '' ]; then
+    echo "You must supply a username"
+    exit 1
+fi
+
+if [ "$2" == '' ]; then
+    echo "You must supply a password"
+    exit 1
+fi
+
+if [ "$3" == '' ]; then
+    echo "You must supply a repo path"
+    exit 1
+fi
+
+if [ "$4" == '' ]; then
+    echo "You must supply a acl path"
+    exit 1
+fi
+
+if [ "$5" == '' ]; then
+    echo "You must supply a auth path"
+    exit 1
+else
+    if [ -d $3 ]; then
+        if [ -w $3 ]; then
+            if [ -w $4 ]; then
+                if [ -w $5 ]; then
+                    # Create the users repo
+                    sudo /usr/local/bin/svnadmin create $3/students/$1
+
+                    # Import the initial repo structure
+                    sudo /usr/local/bin/svn import -m "Initial Repository Layout" $3/setup/ file:///$3/students/$1
+
+                    # Change the ownership to be the apache user
+                    sudo chown nobody:nobody $3/students/$1 -R
+
+                    # Update acl file by adding repo and access restrictions
+                    sudo echo "[$1:/]" >> $4
+                    sudo echo "$1 = rw" >> $4
+
+                    # Updates the subversion auth file
+                    sudo /usr/local/apache2/bin/htpasswd -bm $5 $1 $2
+                    exit 0
+                else
+                    echo $5" is not writable!"
+                    exit 1
+                fi
+            else
+                echo $4" is not writable!"
+                exit 1
+            fi
+        else
+            echo $3" is not writable!"
+            exit 1
+        fi
+    else
+        echo $3" directory doesnt exist!"
+        exit 1
+    fi
+fi

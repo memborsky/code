@@ -1,0 +1,723 @@
+/**
+* Please prefix your style names with the template that they exist in.
+*
+* Flare Team - 2004
+*/
+
+/* START - Global CSS */
+    body {
+        font-size: small;
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        background-color : #ccc;
+        margin:20px 20px 20px 20px;
+    }
+
+    .version {
+        font-size: 8pt;
+        text-align: center;
+    }
+
+    .subtitle {
+        font-size: 8pt;
+        font-style: italic;
+    }
+
+    .app_name {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 38px;
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    .xsmall_centered {
+        font-size: x-small;
+        text-align: center;
+    }
+
+    .normal {
+        font-size: 10pt;
+    }
+
+    img { border: 0; }
+
+    .center {
+        text-align: center;
+    }
+    
+    .input_txt {
+        font-family: arial;
+        font-size: 10pt;
+        border: 1px solid #999;
+    }
+
+    .input_btn {
+        font-family: arial;
+        font-size: 10pt;
+        border: 1px solid #999;
+        cursor: pointer;
+    }
+    .hyperlink {
+        color: blue;
+        text-decoration: underline;
+    }
+
+/* END - Global CSS */
+
+/* START 	- login.tpl */
+    .style1 {
+        font-size: small;
+    }
+
+    .style2 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: x-small;
+        color: #999999;
+    }
+
+    .style2 {
+        font-size: 8pt;
+    }
+
+    .style4 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: x-small;
+    }
+
+    .style5 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: x-small;
+        font-weight: bold;
+    }
+
+    .txtbox {
+        background-color: #AEAEAE;
+    }
+/* END 		- login.tpl */
+
+/* START 	- left.tpl */
+    .col_left_table {
+        text-align: left;
+        width: 100%;
+        height: 30%;
+    }
+
+    .left_header {
+        background-color: rgb(51, 102, 255);
+        height: 10px;
+        width: 110px;
+        color: rgb(255, 255, 255);
+        font-size: 8pt;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        padding-left: 20px;
+    }
+
+    .left_content {
+        background-color: #fff;
+        font-size: x-small;
+        font-family: Arial, Helvetica, sans-serif;
+        height: 1%;
+        width: 15%;
+    }
+
+    .two {
+        font-size: x-small;
+        text-align: center;
+        vertical-align: top;
+        width: 50px;
+    }
+
+    .news_row_one {
+        background-color: #CBD3E6;
+    }
+
+    .news_row_two {
+        background-color: #D9E1EC;
+    }
+
+    .invites_row_one {
+        background-color: #CBD3E6;
+    }
+
+    .invites_row_two {
+        background-color: #D9E1EC;
+    }
+/* END 		- left.tpl */
+
+/* START - header.tpl */
+    .table_outer_two {
+        width: 100%;
+        background-color: #fff;
+        border:1px solid #000;
+    }
+
+    .table_outer_three {
+        width: 100%;
+        font-size:10px;
+        background-color: #fff;
+        border: 1px solid #0E72A4;
+    }
+
+    .nav_area {
+        width: 100%;
+        background: #fff;
+    }
+
+    .main_page {
+        width: 100%;
+        background: #ccc;
+    }
+/* END - header.tpl */
+
+/* START:	- login.tpl */
+    .logo_area {
+        width: 50%;
+        text-align: center;
+    }
+
+    .links_area {
+        width: 100%;
+        text-align: right;
+        font-size: x-small;
+    }
+
+    .user_info_area {
+        width: 50%;
+        text-align: left;
+        font-size: x-small;
+    }
+
+    .footer {
+        width: 100%;
+        background-color: #fff;
+        font-size: x-small;
+    }
+
+    .main {
+        width: 100%;
+        background-color: #fff;
+        font-size: x-small;
+        border: 1px solid #0E72A4;
+        padding: 10px 10px 10px 10px;
+    }
+
+    .login_announce_header {
+        font-weight: bold;
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    .login_announce {
+        vertical-align: top;
+        width: 1%;
+    }
+
+    #login_creds {
+        text-align : center;
+        font-size: x-small;
+    }
+
+    #login_creds input {
+        font-weight: bold;
+        font-size: 7pt;
+        font-family: Helvetica,Arial,sans-serif;
+        text-align : center;
+    }
+
+    .login_news {
+        border: solid 1px #003;
+        font-size: smaller;
+        background-color: #fff;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .login_news h3 {
+        padding: 0;
+        margin: 0;
+    }
+
+    .login_news input {
+        font-family: Helvetica,Arial,sans-serif;
+        font-size: 8pt;
+        margin-right: 40px;
+    }
+
+    #login_create {
+        top : 43%;
+        right : 5%;
+        position : absolute;
+        text-align : left;
+        font-size: 8pt;
+    }
+
+    .login_news_row_one {
+        background-color: rgb(32, 150, 231);
+    }
+
+    .login_news_row_two {
+        background-color: rgb(211, 229, 250);
+    }
+
+    .login_failure {
+        color: blue;
+        font-weight: bold;
+    }
+/* END:		- login.tpl */
+
+/* START - create_account.tpl */
+    #create_account_body {
+        background-color : #EAEAEA;
+        font-family: Helvetica,Arial,sans-serif;
+        font-size: small;
+    }
+
+    .create_account_header {
+        font-weight: bold;
+        font-size: 12pt;
+    }
+
+    .create_account_personal_info {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        width: 502px;
+        height: 100px;
+        border: solid 1px;
+        background-color: #ccc;
+    }
+
+    .create_account_flare_info {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        width: 502px;
+        height: 26px;
+        border: solid 1px;
+        background-color: #ccc;
+    }
+
+    .create_account_checkbox_area {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        width: 502px;
+        height: 26px;
+        border: solid 1px;
+        background-color: #ccc;
+    }
+
+    .create_account_collect {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        width: 500px;
+        height: 82px;
+        border: solid 1px;
+        background-color: #ccc;
+    }
+
+    .create_account_buttons {
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+        width: 404px;
+        height: 28px;
+        border: solid 1px;
+        background-color: #ccc;
+    }
+
+    .create_account_indtech {
+        font-size: small;
+        font-style: italic;
+        font-family: Helvetica,Arial,sans-serif;
+    }
+
+    .create_account_subtitle {
+        font-size: x-small;
+    }
+
+    .create_account_pi_col_1 {
+        font-size: small;
+        width: 201px;
+    }
+
+    .create_account_pi_col_2 {
+        font-size: small;
+        text-align: center;
+        width: 160px;
+    }
+
+    .create_account_fi_col_1 {
+        font-size: small;
+        width: 201px;
+    }
+
+    .create_account_fi_col_2 {
+        font-size: small;
+        text-align: center;
+        width: 160px;
+    }
+
+    .create_account_fi_col_3 {
+        font-size: x-small;
+        text-align: center;
+    }
+
+    .create_account_cb_col_1 {
+        width: 40px;
+        text-align: center;
+    }
+
+    .create_account_cb_col_2 {
+        width: 439px;
+        font-size: small;
+    }
+
+    .create_account_co_col_1 {
+        width: 257px;
+        font-size: small;
+    }
+
+    .create_account_co_col_2 {
+        text-align: center;
+        width: 230px;
+    }
+/* END - create_account.tpl */
+
+/* START - accounts_main.tpl */
+    .accts_main_col_one {
+        font-size: small;
+        text-align: left;
+        width: 25%;
+        vertical-align: top;
+    }
+
+    .accts_section_header {
+        font-size: 12pt;
+        vertical-align: top;
+        background-color: #fff;
+        width: 100%;
+    }
+
+    .accts_main_col_two {
+        font-size: small;
+        text-align: left;
+        width: 50%;
+    }
+
+    .accts_main_col_three {
+        font-size: small;
+        text-align: left;
+        width: 50%;
+    }
+
+    .acct_main_item_header {
+        background-color: #ccc;
+        color: #000;
+        font-weight: bold;
+        font-size: 8pt;
+    }
+
+    .accts_main_adm_user_row_a {
+        background-color: #fff;
+        font-size: 8pt;
+        color: #000;
+    }
+
+    .accts_main_adm_user_row_p {
+        background-color: #fc6;
+        font-size: 8pt;
+        color: #000;
+    }
+
+    .accts_main_adm_user_row_d {
+        background-color: #f66;
+        font-size: 8pt;
+        color: #000;
+    }
+
+/* END - accounts_main.tpl */
+
+/* START - myfiles_upload.tpl */
+    .myfiles_section_header {
+        font-size: 12pt;
+        vertical-align: top;
+        background-color: #fff;
+        width: 100%;
+    }
+
+    .myfiles_upload_row {
+        font-size: small;
+        background-color: #e6e6e6;
+    }
+
+    .myfiles_upload_row td {
+        width: 50%;
+        text-align: center;
+    }
+
+    .myfiles_show_files_header {
+        background-color: #036;
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    .myfiles_show_files_header td {
+        text-decoration: underline;
+    }
+
+    .myfiles_show_files_row {
+        background-color: #e6e6e6;
+        border: 0px;
+    }
+
+    .myfiles_show_files_row a:link {
+        font-family: Helvetica,Arial,sans-serif;
+        text-decoration: none;
+    }
+
+    .myfiles_show_files_row a:visited {
+        font-family: Helvetica,Arial,sans-serif;
+        text-decoration: none;
+    }
+
+    .myfiles_show_files_table {
+        width:100%;
+        border: 1px;
+        border-style: solid;
+        border-collapse: collapse
+    }
+
+    .bookmarks {
+        width:100%;
+        text-align: right;
+    }
+
+    .bookmarks select {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        border: #000000;
+        border-style: solid;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-left-width: 1px
+    }
+
+    .icon {
+        width:1%;
+    }
+
+    .myfiles_list_main {
+        width: 80%;
+        vertical-align: top;
+        padding: 10px 10px 10px 10px;
+    }
+
+    .myfiles_size {
+        width:50px;
+    }
+
+    .myfiles_date_modified {
+        width: 120px;
+    }
+    
+    .myfiles_adm_size {
+        width:12%;
+    }
+    
+    .myfiles_adm_date_modified {
+        width: 12%;
+    }
+    
+    .myfiles_adm_permissions {
+        width: 12%;
+        text-align: center;
+    }
+
+/* END - myfiles_upload.tpl */
+
+/* START - groups templates */
+
+    .groups_actions {
+        width:100%;
+        text-align: right;
+    }
+
+    .groups_actions select {
+        font-weight: normal;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        border: #000000;
+        border-style: solid;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-left-width: 1px
+    }
+
+    .groups_main_col_one {
+        font-size: small;
+        text-align: left;
+        width: 100%;
+        vertical-align: top;
+        padding-left: 10px;
+    }
+
+    .groups_main_checkbox {
+        font-size: small;
+        text-align: left;
+        width: 1%;
+    }
+
+    .groups_section_header {
+        font-size: 12pt;
+        vertical-align: top;
+        background-color: #fff;
+        width: 100%;
+    }
+
+    .groups_section_table {
+        background-color: #ccc;
+        width: 100%;
+    }
+
+    .groups_main_item_header {
+        width: 100%;
+        background-color: #ccc;
+        color: #000;
+        font-weight: bold;
+        font-size: 8pt;
+    }
+
+/* END - groups templates */
+
+/* START - bookmarks templates */
+
+    .bkmks_section_header {
+        font-size: 12pt;
+        vertical-align: top;
+        background-color: #fff;
+        width: 100%;
+    }
+
+    .bkmks_edit_table {
+        width: 100%;
+        background-color: #ccc;
+        border: 1px;
+        border-color: #0E72A4;
+        border-style: solid;
+        border-collapse: collapse;
+    }
+
+    .bkmks_edit_col_one {
+        font-size: 8pt;
+        font-weight: bold;
+        text-align: center;
+        background-color: #ccc;
+    }
+
+    .bkmks_edit_col_two {
+        font-size: 8pt;
+        text-align: center;
+        background-color: #fff;
+    }
+
+    .bkmks_edit_col_two input {
+        border: 1px;
+        border-style: solid;
+        background-color: #fff;
+        color: #000;
+    }
+
+/* END - bookmarks templates */
+
+/* START - admin logging templates */
+
+    .logging_main_item_header {
+        background-color: #ccc;
+        color: #000;
+        font-weight: bold;
+        font-size: 8pt;
+    }
+
+    .logging_row_entry {
+        background-color: #fff;
+        font-size: 8pt;
+        color: #000;
+    }
+
+    .logging {
+        width:100%;
+        text-align: right;
+    }
+
+    .logging select {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        border: #000000;
+        border-style: solid;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-left-width: 1px
+    }
+
+    .logging_config_actions {
+        width:100%;
+        text-align: right;
+    }
+
+    .logging_config_actions select {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        border: #000000;
+        border-style: solid;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-left-width: 1px
+    }
+
+    .logging_page_header {
+        width: 100%;
+        background-color:#e4e4e4;
+        font-size: 10px;
+        text-align: center;
+    }
+
+    .logging_page_header td {
+        color: #ccc;
+    }
+
+/* END - admin logging templates */
+
+/* START - sysinfo styles */
+
+    table.box {
+        color: #fefefe;
+        background-color: #486591;
+        border: none;
+        padding: 1px;
+        width: 100%;
+    }
+
+    tr.boxheader {
+        background-color: #486591;
+    }
+
+    td.boxheader {
+        text-align: center;
+    }
+
+    tr.boxbody {
+        color: #000000;
+        background-color: #e6e6e6;
+    }
+
+/* END - sysinfo styles */
+.col_main_table {
+    background-color: #ccc;
+    width: 100%;
+}

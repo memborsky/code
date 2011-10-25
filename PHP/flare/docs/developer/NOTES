@@ -1,0 +1,59 @@
+Versioning
+----------
+At this point in time, the versioning in Flare works like such.
+Flare's version number is in the format show below
+
+	xx.yy.zz-svn alpha|beta|stable
+
+- xx symbolizes major revision changes
+- yy symbolizes significat revision changes
+- zz symbolizes minor revision changes
+- svn is the current subversion revision.
+- the final part symbolizes the level of quality for this release.
+
+Incentives
+----------
+The Incentives extension focuses on getting the Indiana Tech student body involved in the project.
+
+Incentives offers...well...incentives, to anyone who has and wants to take the time to help us debug Flare.
+The Flare system at Indiana Tech runs in two versions.
+	- First, the stable version,
+		This version is the version that 99.9% of the student body will use. It is the basic service that
+		your first account is created on, and it is known to be stable. However it may have bugs in it
+		just because no software is ever 100% perfect. You can distinguish this version from the other
+		version by examining the interface. The stable version has a gray Flare and gray interface. Also,
+		it doesn't have the huge "Bleeding Edge Technology" sticker slapped across the Flare logo.
+	- Second, the bleeding edge version,
+		This version is the completely open version of Flare that will probably only be used by die hard
+		"bleeding edge technology" fans. We expect about 0.01% of the student body to use this version
+		from time to time ( especially if they find they're running low on disk space and need the rewards
+		from the incentive program to up their quota ). This version is _not_ stable and we do not endorse
+		it's use for everyday tasks. You are allowed to create a free account on the system and experiment
+		with the new features and find bugs. You can tell you are using the bleeding edge version because
+		the entire Flare interface is red, as opposed to the stable ( gray ) interface. The logo is also
+		a blood red, and has an ominous label across it that reads "Bleeding Edge Technology".
+		
+The current incentives list is shown below.
+
+Note that you do not need to download and try to debug the source code to be able to find
+bugs, ( although you will probably find more if you do ).
+
+
+Current Incentives ( For most recent stable version )
+------------------
+1. If you find a reproducable bug and our dev team is able to verify that it truely is a bug, you will receive a
+   personal disk quota increase of 30 meg.
+
+2. If you find a 'one time only' bug, and through the efforts of our dev team we are somehow able to find it, you
+   will receive a personal disk quota increase of 50 meg.
+
+
+Current Incentives ( For bleeding edge version )
+------------------
+1. If you find a reproducable bug and our dev team is able to verify that it truely is a bug, you will receive a
+   personal disk quota incease of 3 meg.
+
+2. If you find a 'one time only' bug, and through the efforts of our dev team we are somehow able to find it, you
+   will receive a personal disk quota increase of 1 meg. ( The major difference here is that 1 time bugs are extremely
+   common in the bleeding edge system because we are constantly coding and updating the source repository with unstable
+   code and fixes.)

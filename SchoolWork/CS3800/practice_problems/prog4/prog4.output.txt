@@ -1,0 +1,4 @@
+Please input an integer value - 
+Fibonacci Number - 75025
+2^n - 33554432
+n! - 2076180480

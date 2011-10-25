@@ -1,0 +1,103 @@
+With Ada.Text_IO, Ada.Integer_Text_IO;
+Use Ada.Text_IO;
+Package BODY numstring_package IS
+
+        -- data declerations
+        Type ar IS Array ( 1 .. 20 ) OF Character;
+
+        Type list IS Record
+           info : ar;
+           length : Integer;
+        End Record;
+
+        Type dat IS Array ( 1 .. 2 ) OF list;
+
+	data : dat;
+
+	-- Package
+--	Function "+" (num : Long_Long_Integer) Return Long_Long_Integer IS
+
+--	Begin
+
+--		null;
+--		Return 0;
+
+--	End "+";
+
+--	Function "-" (num : Long_Long_Integer) Return Long_Long_Integer IS
+
+--	Begin
+
+--		null;
+--		Return 0;
+
+--	End "-";
+
+--	Function "/" (num : Long_Long_Integer) Return Long_Long_Integer IS
+
+--	Begin
+
+--		null;
+--		Return 0;
+
+--	End "/";
+
+	Procedure put_data (file : out File_Type) IS
+
+	local_data : Integer := 1;
+	local_info : Integer := 1;
+
+	Begin
+
+		While local_info <= data(local_data).length Loop
+
+			Ada.Text_IO.put(data(local_data).info(local_info));
+			local_info := local_info + 1;
+
+		End Loop;
+
+		Ada.Text_IO.new_line;
+
+	End put_data;
+
+	Procedure get_data (file : in File_Type) IS
+
+	    local_data : Integer := 1;
+	    local_info : Integer := 1;
+
+	Begin
+
+	    While not Ada.Text_IO.end_of_line Loop
+
+		Ada.Text_IO.get(file, data(local_data).info(local_info));
+		local_info := local_info + 1;
+
+	    End Loop;
+
+	    data(local_data).length := local_info - 1;
+
+	End get_data;
+
+	Procedure init IS
+
+	    local_data : Integer := 1;
+	    local_info : Integer := 1;
+
+	Begin
+
+	    While local_data <= 2 Loop
+
+		data(local_data).length := 0;
+
+		While local_info <= 20 Loop
+
+		    data(local_data).info(local_info) := ' ';
+		    local_info := local_info + 1;
+
+		End Loop;
+
+	    End Loop;
+
+	End init;
+
+END numstring_package;

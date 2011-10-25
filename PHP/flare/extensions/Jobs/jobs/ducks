@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# number of bytes in a gigabyte is 1048576
+#
+
+homed="/mnt/fuel/home/"
+dirs=`ls $homed`
+
+for x in $dirs
+do
+    if [ -d $homed/$x ]; then
+        du -khs $homed$x
+        fi
+done
