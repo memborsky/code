@@ -26,7 +26,7 @@ Begin
         email := Ada.Strings.Unbounded.To_Unbounded_String(Ada.Command_Line.Argument(1));
     End If;
         
-    Ada.Text_IO.Put_Line(uri & GNAT.MD5.Digest(Ada.Strings.Unbounded.To_String(email)) & "?s=" & Get_Integer_As_String(size));
+    Ada.Text_IO.Put(uri & GNAT.MD5.Digest(Ada.Strings.Unbounded.To_String(email)) & "?s=" & Get_Integer_As_String(size));
 
 End gravatar;
 
