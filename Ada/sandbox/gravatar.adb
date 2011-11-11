@@ -5,8 +5,6 @@ With Ada.Strings.Unbounded;
 
 Procedure gravatar Is
 
-    email       : Ada.Strings.Unbounded.Unbounded_String := Ada.Strings.Unbounded.To_Unbounded_String("");
-    
     uri         : String := "https://secure.gravatar.com/avatar/";
     size        : Integer := 140;
 
@@ -22,11 +20,23 @@ Procedure gravatar Is
 
 Begin
 
-    If Ada.Command_Line.Argument_Count = 1 Then
-        email := Ada.Strings.Unbounded.To_Unbounded_String(Ada.Command_Line.Argument(1));
+    If Ada.Command_Line.Argument_Count >= 1 Then
+
+        For Argument In 1..Ada.Command_Line.Argument_Count Loop
+
+            Declare
+
+                email : Ada.Strings.Unbounded.Unbounded_String := Ada.Strings.Unbounded.To_Unbounded_String(Ada.Command_Line.Argument(Argument));
+
+            Begin
+
+                Ada.Text_IO.Put_Line(uri & GNAT.MD5.Digest(Ada.Strings.Unbounded.To_String(email)) & "?s=" & Get_Integer_As_String(size));
+
+            End;
+              
+        End Loop;
     End If;
         
-    Ada.Text_IO.Put(uri & GNAT.MD5.Digest(Ada.Strings.Unbounded.To_String(email)) & "?s=" & Get_Integer_As_String(size));
 
 End gravatar;
 
