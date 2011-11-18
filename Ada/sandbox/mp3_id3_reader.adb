@@ -1,61 +1,79 @@
-With Ada.Text_IO;
-With Ada.Strings.Unbounded;
-With Ada.Streams.Stream_IO;
-With Ada.Command_Line;
+with Ada.Text_IO;
+with Ada.Strings.Unbounded;
+with Ada.Streams.Stream_IO;
+with Ada.Command_Line;
+with Ada.Streams;
 
-Use Type Ada.Streams.Stream_IO.Count;
+use type Ada.Streams.Stream_IO.Count;
 
-Procedure mp3_id3_reader Is
+procedure mp3_id3_reader is
 
-    Type Tag_Data_Record Is Record
-        Title   : Ada.Strings.Unbounded.Unbounded_String;
-        Artist  : Ada.Strings.Unbounded.Unbounded_String;
-        Album   : Ada.Strings.Unbounded.Unbounded_String;
-        Year    : Ada.Strings.Unbounded.Unbounded_String;
-        Comment : Ada.Strings.Unbounded.Unbounded_String;
-        Genre   : Ada.Strings.Unbounded.Unbounded_String;
-    End Record;
+    -- Holds our file stream pointer.
+    File : Ada.Streams.Stream_IO.File_Type;
 
-    File   : Ada.Streams.Stream_IO.File_Type;
+    -- Holds our tag data from the file we pass in via argument list.
+    Tag : Ada.Streams.Stream_Element_Array(1..4000);
 
-    Buffer : String(1..128);
+    -- This is the location in our tag array that our last piece of data was read into.
+    Last : Ada.Streams.Stream_Element_Offset;
 
-Begin
+    -- Used to offset ourselves from the beginning of the file to reading our tag.
+    Offset : Ada.Streams.Stream_IO.Count;
 
-    If Ada.Command_Line.Argument_Count >= 1 Then
+begin
 
-        For Argument In 1..Ada.Command_Line.Argument_Count Loop
+    -- Only proceed if we actually have an argument.
+    if Ada.Command_Line.Argument_Count >= 1 then
 
-            Declare
+        -- Loop through each argument we are passed from the command line.
+        for Argument in 1..Ada.Command_Line.Argument_Count loop
 
-                -- This holds our current file name from the arugment list.
+            declare
+
+                -- Our current arguments filename.
                 Filename : String renames Ada.Command_Line.Argument(Argument);
 
-            Begin
+            begin
                 -- Opens our current file paramter for tag data parsing.
-                Ada.Streams.Stream_IO.Open(File, Ada.Streams.Stream_IO.In_File, Filename);
+                Ada.Streams.Stream_IO.Open(File, Ada.Streams.Stream_IO.in_File, Filename);
 
                 -- DEBUG: Output our current file name so we can see what we are working with.
                 Ada.Text_IO.Put_Line("Filename = " & Filename);
 
-                -- Move the file pointer to 128 bytes from the end of the file.
-                Ada.Streams.Stream_IO.Set_Index(File, Ada.Streams.Stream_IO.Size(File) - 128); 
+                -- Make sure we are at the beginning of the file stream before we attempt to read.
+                Ada.Streams.Stream_IO.Set_index(File, 1);
 
-                -- This will read the input stream and dump it into our buffer which we will parse later for tag data.
-                String'Read(Ada.Streams.Stream_IO.Stream(File), Buffer);
+                -- We want to make sure we are 128 bits from the end of our file for the id3 tag to be read.
+                Offset := Ada.Streams.Stream_IO.Size(File) - 128;
 
-                -- DEBUG: Just puts our buffer string so we can see what we got.
-                Ada.Text_IO.Put_Line(Buffer);
+                -- Read the input stream and dump it into our tag array.
+                Ada.Streams.Stream_IO.Read(File, Tag, Last, Offset);
+
+                -- DEBUG: This will convert our tag stream element into a string and ouput it to the console.
+                declare
+                    Output : String (1 .. Positive(Last));
+                begin
+                    for Index in Output'Range loop
+                        Output(Index) := Character'Val( Natural( Tag( Ada.Streams.Stream_Element_Offset(Index) ) ) );
+                    end loop;
+
+                    Ada.Text_IO.Put_Line(Output);
+                end;
 
                 -- Close the file stream.
                 Ada.Streams.Stream_IO.Close(File);
 
                 -- Seperate our current file's output data before the next.
                 Ada.Text_IO.New_Line(1);
-            End;
+            end;
 
-        End Loop;
+        end loop;
 
-    End If;
+    else
 
-End mp3_id3_reader;
+        -- Output our command usage.
+        Ada.Text_IO.Put_Line("Command Usage: mp3_id3_reader <path/to/file.mp3>");
+
+    end if;
+
+end mp3_id3_reader;
