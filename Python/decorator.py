@@ -1,30 +1,15 @@
-# Example below is from:
-# http://stackoverflow.com/questions/739654/understanding-python-decorators
+def divide_by_two(func):
+    """ Always divide by 2 """
 
-# The decorator to make it bold
-def makebold(func):
-
-    # The new function the decorator returns
-    def wrapper(arg1, arg2):
-        # Insertion of some code before and after
-        return "<strong>" + func(arg1, arg2) + "</strong>"
+    def wrapper(*args, **kargs):
+        return func(*args, **kargs) / 2
 
     return wrapper
 
-# The decorator to make it italic
-def makeitalic(func):
+@divide_by_two
+def number(num):
+    """ Simply divide whatever we input by 2 [our decorator function]. """
+    return num
 
-    # The new function the decorator returns
-    def wrapper(arg1, arg2):
-        # Insertion of some code before and after
-        return "<em>" + func(arg1, arg2) + "</em>"
-
-    return wrapper
-
-@makebold
-@makeitalic
-def say(phrase, name):
-    return phrase + name + "!"
-
-print say("Hello ", "Matt")
-#outputs: <strong><em>Hello World!</em></strong>
+print number(10)
+#outputs: 5
